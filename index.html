@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cortex · 智枢 — AI 驱动的加密货币量化交易</title>
+  <meta name="description" content="Cortex 智枢——本地运行的桌面端量化交易工具，AI 调参 + 多交易所适配 + 模拟盘 + 一次性买断。" />
+  <meta name="keywords" content="量化交易,加密货币,Binance,OKX,Bybit,AI 交易,Cortex,智枢" />
+  <meta property="og:title" content="Cortex · 智枢 — AI 驱动的加密货币量化交易" />
+  <meta property="og:description" content="本地运行 · API key 永不出本机 · 一次性买断" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2322D3EE'/%3E%3Cstop offset='100%25' stop-color='%23A78BFA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M 90 35 A 35 35 0 1 0 90 85' fill='none' stroke='url(%23g)' stroke-width='10' stroke-linecap='round'/%3E%3Ccircle cx='60' cy='60' r='5' fill='white'/%3E%3C/svg%3E" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bg-deep': '#0a0e1a',
+            'bg-card': '#131826',
+            'bg-soft': '#1a2032',
+            'border-soft': 'rgba(148, 163, 184, 0.12)',
+            'text-pri': '#e2e8f0',
+            'text-sec': '#94a3b8',
+            'text-dim': '#64748b',
+            'cyan-glow': '#22d3ee',
+            'violet-glow': '#a78bfa',
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'PingFang SC', 'sans-serif'],
+            mono: ['ui-monospace', 'SF Mono', 'Menlo', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { background: #0a0e1a; color: #e2e8f0; }
+    .gradient-text {
+      background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%);
+    }
+    .gradient-border {
+      position: relative;
+      background: linear-gradient(#131826, #131826) padding-box,
+                  linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%) border-box;
+      border: 1px solid transparent;
+    }
+    .glow {
+      box-shadow: 0 0 40px rgba(34, 211, 238, 0.15), 0 0 80px rgba(167, 139, 250, 0.08);
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(60% 50% at 50% 0%, rgba(34, 211, 238, 0.15) 0%, transparent 70%),
+        radial-gradient(40% 40% at 80% 30%, rgba(167, 139, 250, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .nav-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+    .pulse-dot { animation: pulse-dot 1.5s ease-in-out infinite; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="min-h-screen font-sans">
+
+  <!-- 顶部导航 -->
+  <nav class="fixed top-0 left-0 right-0 z-50 nav-blur bg-bg-deep/70 border-b border-border-soft">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2 text-lg font-bold tracking-widest">
+        <svg width="22" height="22" viewBox="0 0 120 120">
+          <defs>
+            <linearGradient id="nav-g" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#22D3EE" />
+              <stop offset="100%" stop-color="#A78BFA" />
+            </linearGradient>
+          </defs>
+          <path d="M 90 35 A 35 35 0 1 0 90 85" fill="none" stroke="url(#nav-g)" stroke-width="14" stroke-linecap="round" />
+          <circle cx="60" cy="60" r="6" fill="#fff" />
+        </svg>
+        <span class="gradient-text">CORTEX</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-text-sec">
+        <a href="#features" class="hover:text-text-pri transition">特性</a>
+        <a href="#how" class="hover:text-text-pri transition">流程</a>
+        <a href="#pricing" class="hover:text-text-pri transition">定价</a>
+        <a href="#faq" class="hover:text-text-pri transition">FAQ</a>
+      </div>
+      <a href="#download" class="gradient-bg text-bg-deep px-4 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition">下载</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="top" class="relative hero-bg pt-32 pb-24 px-6 overflow-hidden">
+    <div class="max-w-5xl mx-auto text-center relative">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border-soft bg-bg-card/50 text-xs text-text-sec mb-8">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-glow pulse-dot"></span>
+        v1.5 已上线 · 支持 Binance / OKX / Bybit
+      </div>
+
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
+        让 <span class="gradient-text">AI</span> 给你的<br />
+        加密交易做<span class="gradient-text">大脑</span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-text-sec max-w-2xl mx-auto mb-12 leading-relaxed">
+        Cortex 是一款本地运行的量化交易桌面应用。<br />
+        AI 帮你调参、策略自动跑、API key 永不出本机。
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#download" class="gradient-bg text-bg-deep px-8 py-3 rounded-xl font-semibold text-base hover:opacity-90 transition flex items-center gap-2 glow">
+          <span>⬇</span>
+          <span>下载 Mac 版</span>
+        </a>
+        <a href="#pricing" class="px-8 py-3 rounded-xl border border-border-soft text-text-pri hover:border-cyan-glow/50 transition font-medium">
+          查看定价
+        </a>
+      </div>
+
+      <div class="mt-16 flex flex-wrap justify-center gap-x-8 gap-y-3 text-xs text-text-dim">
+        <span>✓ 一次性买断</span>
+        <span>✓ 本地运行 不上传数据</span>
+        <span>✓ 模拟盘随便练</span>
+        <span>✓ AI 多模型支持</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心特性 -->
+  <section id="features" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <div class="text-xs text-cyan-glow uppercase tracking-widest mb-3">核心特性</div>
+        <h2 class="text-3xl md:text-4xl font-bold">为认真做交易的人打造</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Feature 1 -->
+        <div class="bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/30 transition">
+          <div class="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center mb-5 text-2xl">🧠</div>
+          <h3 class="text-xl font-bold mb-3">AI 调参</h3>
+          <p class="text-text-sec leading-relaxed text-sm">
+            内置 GPT / Claude，对策略参数给出建议、解释市况、做交易复盘。你的 API key 直连模型，不经第三方中转。
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/30 transition">
+          <div class="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center mb-5 text-2xl">🔗</div>
+          <h3 class="text-xl font-bold mb-3">三大交易所</h3>
+          <p class="text-text-sec leading-relaxed text-sm">
+            Binance / OKX / Bybit 三家全链路打通。现货 + 合约都支持，单适配器换交易所。模拟盘 / 实盘一键切换。
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/30 transition">
+          <div class="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center mb-5 text-2xl">🔒</div>
+          <h3 class="text-xl font-bold mb-3">本地优先</h3>
+          <p class="text-text-sec leading-relaxed text-sm">
+            零云端账号、零数据上传。API key 用 AES-256 加密存本机数据库。我们不持有你任何信息，没法持有。
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/30 transition">
+          <div class="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center mb-5 text-2xl">🛡</div>
+          <h3 class="text-xl font-bold mb-3">紧急控制</h3>
+          <p class="text-text-sec leading-relaxed text-sm">
+            一键撤单 / 强制平仓 / 全部停止——市场出意外的时候你不用慌着找按钮。三级递进，每一级都需要二次确认。
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/30 transition">
+          <div class="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center mb-5 text-2xl">📊</div>
+          <h3 class="text-xl font-bold mb-3">回测 + 模拟</h3>
+          <p class="text-text-sec leading-relaxed text-sm">
+            真行情 + 假资金 = 模拟盘，任何策略上实盘前都能先在这里跑通。回测引擎支持参数寻优，找出最佳组合。
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/30 transition">
+          <div class="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center mb-5 text-2xl">🔔</div>
+          <h3 class="text-xl font-bold mb-3">实时通知</h3>
+          <p class="text-text-sec leading-relaxed text-sm">
+            策略下单 / 异常 / 平仓 都能推送到邮件 / Telegram。半夜出事不漏过。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 工作流程 -->
+  <section id="how" class="py-24 px-6 bg-bg-card/30">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <div class="text-xs text-cyan-glow uppercase tracking-widest mb-3">怎么开始</div>
+        <h2 class="text-3xl md:text-4xl font-bold">三步用上 Cortex</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 relative">
+        <div class="hidden md:block absolute top-8 left-[16%] right-[16%] h-px bg-gradient-to-r from-cyan-glow/30 via-violet-glow/30 to-cyan-glow/30"></div>
+
+        <div class="relative text-center">
+          <div class="w-16 h-16 mx-auto rounded-full gradient-bg flex items-center justify-center text-2xl font-bold text-bg-deep mb-6 relative z-10 glow">1</div>
+          <h3 class="text-lg font-bold mb-2">下载安装</h3>
+          <p class="text-text-sec text-sm leading-relaxed">下载 Cortex 安装包，拖到 Applications 文件夹。首次启动会让你选模拟盘还是实盘。</p>
+        </div>
+
+        <div class="relative text-center">
+          <div class="w-16 h-16 mx-auto rounded-full gradient-bg flex items-center justify-center text-2xl font-bold text-bg-deep mb-6 relative z-10 glow">2</div>
+          <h3 class="text-lg font-bold mb-2">挂上 API key</h3>
+          <p class="text-text-sec text-sm leading-relaxed">在设置里填交易所 API（只勾交易权限，不要提现）。Cortex 测试连通后给你启用，钥匙永不离开你的电脑。</p>
+        </div>
+
+        <div class="relative text-center">
+          <div class="w-16 h-16 mx-auto rounded-full gradient-bg flex items-center justify-center text-2xl font-bold text-bg-deep mb-6 relative z-10 glow">3</div>
+          <h3 class="text-lg font-bold mb-2">挑策略跑起来</h3>
+          <p class="text-text-sec text-sm leading-relaxed">从策略市场挑一个、调几个参数、点启动。Cortex 接管，你看看仪表盘就行。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 定价 -->
+  <section id="pricing" class="py-24 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-16">
+        <div class="text-xs text-cyan-glow uppercase tracking-widest mb-3">定价</div>
+        <h2 class="text-3xl md:text-4xl font-bold">一次买断，终身使用</h2>
+        <p class="text-text-sec mt-4">不订阅、不抽佣、不收割。一次付款用到天荒地老。</p>
+      </div>
+
+      <div class="gradient-border rounded-3xl p-10 glow">
+        <div class="text-center">
+          <div class="text-cyan-glow text-sm uppercase tracking-widest mb-3">Cortex Pro</div>
+          <div class="flex items-baseline justify-center gap-2 mb-2">
+            <span class="text-6xl font-bold gradient-text">¥499</span>
+            <span class="text-text-sec">/ 永久</span>
+          </div>
+          <p class="text-text-dim text-sm">一台电脑一个码 · 含所有功能 · 含未来版本更新</p>
+        </div>
+
+        <div class="border-t border-border-soft my-8"></div>
+
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>三大交易所 · 现货 + 合约全支持</span></li>
+          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>AI 调参 · 内置 GPT / Claude / 等等</span></li>
+          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>策略市场 · 多种内置策略可直接套用</span></li>
+          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>回测引擎 + 参数寻优</span></li>
+          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>模拟盘 · 用真行情练手不花钱</span></li>
+          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>邮件 / Telegram 通知</span></li>
+          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>本地运行 · 数据零上传</span></li>
+          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>免费版本更新（v2 / v3 ...）</span></li>
+        </ul>
+
+        <a href="#download" class="block w-full gradient-bg text-bg-deep text-center py-3 rounded-xl font-semibold hover:opacity-90 transition">
+          下载试用 → 联系购买
+        </a>
+        <p class="text-center text-xs text-text-dim mt-3">未激活时可用所有功能浏览界面，启动策略需要 license</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 下载 -->
+  <section id="download" class="py-24 px-6 bg-bg-card/30">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <div class="text-xs text-cyan-glow uppercase tracking-widest mb-3">下载</div>
+        <h2 class="text-3xl md:text-4xl font-bold">选择你的系统</h2>
+        <p class="text-text-sec mt-4">当前版本 <span class="font-mono text-cyan-glow">v0.1.0</span></p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <a href="#" data-download="mac-arm64" class="group bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/40 transition flex items-center justify-between">
+          <div>
+            <div class="text-2xl mb-2">🍎</div>
+            <div class="font-bold text-lg mb-1">macOS · Apple Silicon</div>
+            <div class="text-text-sec text-sm">M1 / M2 / M3 / M4</div>
+            <div class="text-text-dim text-xs mt-2 font-mono">Cortex-0.1.0-arm64.dmg · 132 MB</div>
+          </div>
+          <div class="text-cyan-glow text-3xl group-hover:translate-x-1 transition">→</div>
+        </a>
+
+        <a href="#" data-download="mac-x64" class="group bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/40 transition flex items-center justify-between">
+          <div>
+            <div class="text-2xl mb-2">🍎</div>
+            <div class="font-bold text-lg mb-1">macOS · Intel</div>
+            <div class="text-text-sec text-sm">Intel Mac</div>
+            <div class="text-text-dim text-xs mt-2 font-mono">Cortex-0.1.0-x64.dmg · 136 MB</div>
+          </div>
+          <div class="text-cyan-glow text-3xl group-hover:translate-x-1 transition">→</div>
+        </a>
+
+        <div class="bg-bg-card/50 border border-dashed border-border-soft rounded-2xl p-8 flex items-center justify-between opacity-60">
+          <div>
+            <div class="text-2xl mb-2">🪟</div>
+            <div class="font-bold text-lg mb-1">Windows</div>
+            <div class="text-text-sec text-sm">即将推出</div>
+          </div>
+          <div class="text-text-dim text-sm">敬请期待</div>
+        </div>
+
+        <div class="bg-bg-card/50 border border-dashed border-border-soft rounded-2xl p-8 flex items-center justify-between opacity-60">
+          <div>
+            <div class="text-2xl mb-2">🐧</div>
+            <div class="font-bold text-lg mb-1">Linux</div>
+            <div class="text-text-sec text-sm">规划中</div>
+          </div>
+          <div class="text-text-dim text-sm">敬请期待</div>
+        </div>
+      </div>
+
+      <div class="mt-12 bg-bg-soft/50 border border-border-soft rounded-2xl p-6">
+        <h3 class="font-semibold mb-3 flex items-center gap-2">
+          <span class="text-cyan-glow">ℹ</span> macOS 首次打开提示
+        </h3>
+        <p class="text-text-sec text-sm leading-relaxed mb-3">
+          Cortex 暂未购买苹果开发者签名（节省成本），首次启动会弹出"无法验证开发者"。请按以下方式放行：
+        </p>
+        <ol class="text-text-sec text-sm space-y-2 list-decimal list-inside">
+          <li>双击 Cortex.app → 弹出警告 → 点"完成"（不要点"移到废纸篓"）</li>
+          <li>打开"系统设置 → 隐私与安全性"，滚到底，看到 "Cortex 已被阻止" → 点<strong class="text-text-pri">"仍要打开"</strong></li>
+          <li>或者一行命令直接放行：</li>
+        </ol>
+        <pre class="bg-bg-deep rounded-lg p-3 mt-3 text-xs font-mono text-text-pri overflow-x-auto">xattr -dr com.apple.quarantine /Applications/Cortex.app</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系购买 -->
+  <section id="contact" class="py-24 px-6">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="text-xs text-cyan-glow uppercase tracking-widest mb-3">购买激活</div>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">下好以后，加我激活</h2>
+      <p class="text-text-sec leading-relaxed mb-10">
+        Cortex 暂走个人沟通激活，加微信付款后我会用你提供的机器码签发 license 文件。<br />
+        一台电脑一个码，永久有效。
+      </p>
+
+      <div class="bg-bg-card border border-border-soft rounded-2xl p-8 inline-block">
+        <div class="text-text-sec text-sm mb-4">添加微信</div>
+        <!-- 替换成你的真实二维码 -->
+        <div class="w-48 h-48 mx-auto bg-bg-soft rounded-xl flex items-center justify-center text-text-dim text-xs border border-border-soft">
+          [ 微信二维码占位 ]
+        </div>
+        <div class="text-text-dim text-xs mt-4 font-mono">备注 "cortex" 通过更快</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-24 px-6 bg-bg-card/30">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-16">
+        <div class="text-xs text-cyan-glow uppercase tracking-widest mb-3">常见问题</div>
+        <h2 class="text-3xl md:text-4xl font-bold">FAQ</h2>
+      </div>
+
+      <div class="space-y-4">
+        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
+          <summary class="font-semibold cursor-pointer flex items-center justify-between">
+            <span>Cortex 会拿到我的 API key 吗？</span>
+            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
+          </summary>
+          <p class="mt-4 text-text-sec text-sm leading-relaxed">
+            不会。API key 用 AES-256 加密存在你电脑的 <code class="text-cyan-glow">~/.cortex/data.db</code>，加密主密钥单独放本机。Cortex 没有任何远端服务接收你的密钥。源码里 <code class="text-cyan-glow">secrets_vault</code> 模块可查证。
+          </p>
+        </details>
+
+        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
+          <summary class="font-semibold cursor-pointer flex items-center justify-between">
+            <span>没买之前能不能先看看？</span>
+            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
+          </summary>
+          <p class="mt-4 text-text-sec text-sm leading-relaxed">
+            可以。下载装上就能浏览界面、看策略列表、跑模拟盘看回测结果。只有"启动实盘策略"这一步需要 license。
+          </p>
+        </details>
+
+        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
+          <summary class="font-semibold cursor-pointer flex items-center justify-between">
+            <span>换电脑了怎么办？</span>
+            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
+          </summary>
+          <p class="mt-4 text-text-sec text-sm leading-relaxed">
+            微信发我新机器码 + 旧 license 编号，我把绑定切到新机器。每年免费切一次，超过算工本费 ¥50 一次。
+          </p>
+        </details>
+
+        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
+          <summary class="font-semibold cursor-pointer flex items-center justify-between">
+            <span>Cortex 推荐我做什么策略？</span>
+            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
+          </summary>
+          <p class="mt-4 text-text-sec text-sm leading-relaxed">
+            Cortex 是工具不是顾问。内置网格 / 趋势跟踪 / 均值回归 / DCA 等经典策略，参数你定。AI 助手能基于市况给建议，但最终决策由你。所有策略都强制建议你先在模拟盘跑一周。
+          </p>
+        </details>
+
+        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
+          <summary class="font-semibold cursor-pointer flex items-center justify-between">
+            <span>会和我抢手动交易吗？</span>
+            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
+          </summary>
+          <p class="mt-4 text-text-sec text-sm leading-relaxed">
+            不会。Cortex 定位是量化工具，从 v1.5 起完全移除了手动下单页——那活儿交易所原生 App 做得好得多。Cortex 只管自动执行策略。
+          </p>
+        </details>
+
+        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
+          <summary class="font-semibold cursor-pointer flex items-center justify-between">
+            <span>开源吗？</span>
+            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
+          </summary>
+          <p class="mt-4 text-text-sec text-sm leading-relaxed">
+            目前闭源，未来不排除核心引擎部分开源。如果你是机构客户需要审计源码，可单独联系。
+          </p>
+        </details>
+
+        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
+          <summary class="font-semibold cursor-pointer flex items-center justify-between">
+            <span>未来涨价吗？</span>
+            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
+          </summary>
+          <p class="mt-4 text-text-sec text-sm leading-relaxed">
+            早期 ¥499 是种子价。随功能增加价格会逐步上调。已经买的客户永远不补差，所有版本更新免费。
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-border-soft py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <svg width="20" height="20" viewBox="0 0 120 120">
+              <path d="M 90 35 A 35 35 0 1 0 90 85" fill="none" stroke="url(#nav-g)" stroke-width="14" stroke-linecap="round" />
+              <circle cx="60" cy="60" r="6" fill="#fff" />
+            </svg>
+            <span class="font-bold tracking-widest gradient-text">CORTEX · 智枢</span>
+          </div>
+          <p class="text-text-dim text-xs">AI 驱动的加密货币量化交易桌面应用</p>
+        </div>
+        <div class="text-xs text-text-dim space-y-1">
+          <p>风险提示：加密货币交易具有高风险。Cortex 仅提供工具，不构成任何投资建议。</p>
+          <p>© 2026 Cortex. 一切翻车都是市场的错，不是 Cortex 的。</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 简单的下载按钮处理（实际链接占位）
+    document.querySelectorAll('[data-download]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const variant = el.dataset.download;
+        // TODO: 替换成实际下载地址（OSS / R2 / GitHub Releases）
+        const urls = {
+          'mac-arm64': '',
+          'mac-x64': '',
+        };
+        const url = urls[variant];
+        if (!url) {
+          alert('下载地址正在配置中。临时方案：私信微信获取安装包。');
+          return;
+        }
+        window.location.href = url;
+      });
+    });
+  </script>
+</body>
+</html>
