@@ -105,7 +105,7 @@
     <div class="max-w-5xl mx-auto text-center relative">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border-soft bg-bg-card/50 text-xs text-text-sec mb-8">
         <span class="w-1.5 h-1.5 rounded-full bg-cyan-glow pulse-dot"></span>
-        v1.5 已上线 · 支持 Binance / OKX / Bybit
+        v0.1.0 首发 · macOS + Windows · 支持 Binance / OKX / Bybit
       </div>
 
       <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
@@ -121,7 +121,7 @@
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
         <a href="#download" class="gradient-bg text-bg-deep px-8 py-3 rounded-xl font-semibold text-base hover:opacity-90 transition flex items-center gap-2 glow">
           <span>⬇</span>
-          <span>下载 Mac 版</span>
+          <span>下载</span>
         </a>
         <a href="#features" class="px-8 py-3 rounded-xl border border-border-soft text-text-pri hover:border-cyan-glow/50 transition font-medium">
           看看能做什么
@@ -216,19 +216,19 @@
         <div class="relative text-center">
           <div class="w-16 h-16 mx-auto rounded-full gradient-bg flex items-center justify-center text-2xl font-bold text-bg-deep mb-6 relative z-10 glow">1</div>
           <h3 class="text-lg font-bold mb-2">下载安装</h3>
-          <p class="text-text-sec text-sm leading-relaxed">下载 Cortex 安装包，拖到 Applications 文件夹。首次启动会让你选模拟盘还是实盘。</p>
+          <p class="text-text-sec text-sm leading-relaxed">下载对应你系统的安装包，装好启动 Cortex。首次启动会显示机器码 + 等待激活页。</p>
         </div>
 
         <div class="relative text-center">
           <div class="w-16 h-16 mx-auto rounded-full gradient-bg flex items-center justify-center text-2xl font-bold text-bg-deep mb-6 relative z-10 glow">2</div>
-          <h3 class="text-lg font-bold mb-2">挂上 API key</h3>
-          <p class="text-text-sec text-sm leading-relaxed">在设置里填交易所 API（只勾交易权限，不要提现）。Cortex 测试连通后给你启用，钥匙永不离开你的电脑。</p>
+          <h3 class="text-lg font-bold mb-2">粘贴激活码</h3>
+          <p class="text-text-sec text-sm leading-relaxed">把机器码发给我，购买后会拿到一串 88 字符激活码。粘到 Cortex 激活页 → 完事。</p>
         </div>
 
         <div class="relative text-center">
           <div class="w-16 h-16 mx-auto rounded-full gradient-bg flex items-center justify-center text-2xl font-bold text-bg-deep mb-6 relative z-10 glow">3</div>
-          <h3 class="text-lg font-bold mb-2">挑策略跑起来</h3>
-          <p class="text-text-sec text-sm leading-relaxed">从策略市场挑一个、调几个参数、点启动。Cortex 接管，你看看仪表盘就行。</p>
+          <h3 class="text-lg font-bold mb-2">挂 API + 跑策略</h3>
+          <p class="text-text-sec text-sm leading-relaxed">设置里填交易所 API（只勾交易权限），策略市场挑一个跑起来，仪表盘上看就行。</p>
         </div>
       </div>
     </div>
@@ -244,58 +244,73 @@
       </div>
 
       <div class="grid md:grid-cols-2 gap-6">
-        <a href="#" data-download="mac-arm64" class="group bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/40 transition flex items-center justify-between">
+        <a href="https://github.com/luozihuan1120/cortex-website/releases/download/v0.1.0/Cortex-0.1.0-arm64.dmg" class="group bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/40 transition flex items-center justify-between">
           <div>
             <div class="text-2xl mb-2">🍎</div>
             <div class="font-bold text-lg mb-1">macOS · Apple Silicon</div>
             <div class="text-text-sec text-sm">M1 / M2 / M3 / M4</div>
-            <div class="text-text-dim text-xs mt-2 font-mono">Cortex-0.1.0-arm64.dmg · 132 MB</div>
+            <div class="text-text-dim text-xs mt-2 font-mono">Cortex-0.1.0-arm64.dmg · 122 MB</div>
           </div>
           <div class="text-cyan-glow text-3xl group-hover:translate-x-1 transition">→</div>
         </a>
 
-        <a href="#" data-download="mac-x64" class="group bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/40 transition flex items-center justify-between">
+        <a href="https://github.com/luozihuan1120/cortex-website/releases/download/v0.1.0/Cortex-0.1.0-x64.dmg" class="group bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/40 transition flex items-center justify-between">
           <div>
             <div class="text-2xl mb-2">🍎</div>
             <div class="font-bold text-lg mb-1">macOS · Intel</div>
             <div class="text-text-sec text-sm">Intel Mac</div>
-            <div class="text-text-dim text-xs mt-2 font-mono">Cortex-0.1.0-x64.dmg · 136 MB</div>
+            <div class="text-text-dim text-xs mt-2 font-mono">Cortex-0.1.0-x64.dmg · 126 MB</div>
           </div>
           <div class="text-cyan-glow text-3xl group-hover:translate-x-1 transition">→</div>
         </a>
 
-        <div class="bg-bg-card/50 border border-dashed border-border-soft rounded-2xl p-8 flex items-center justify-between opacity-60">
+        <a href="https://github.com/luozihuan1120/cortex-website/releases/download/v0.1.0/Cortex-0.1.0-Setup.exe" class="group bg-bg-card border border-border-soft rounded-2xl p-8 hover:border-cyan-glow/40 transition flex items-center justify-between md:col-span-2">
           <div>
             <div class="text-2xl mb-2">🪟</div>
             <div class="font-bold text-lg mb-1">Windows</div>
-            <div class="text-text-sec text-sm">即将推出</div>
+            <div class="text-text-sec text-sm">Windows 10 / 11 · x64</div>
+            <div class="text-text-dim text-xs mt-2 font-mono">Cortex-0.1.0-Setup.exe · 96 MB</div>
           </div>
-          <div class="text-text-dim text-sm">敬请期待</div>
-        </div>
-
-        <div class="bg-bg-card/50 border border-dashed border-border-soft rounded-2xl p-8 flex items-center justify-between opacity-60">
-          <div>
-            <div class="text-2xl mb-2">🐧</div>
-            <div class="font-bold text-lg mb-1">Linux</div>
-            <div class="text-text-sec text-sm">规划中</div>
-          </div>
-          <div class="text-text-dim text-sm">敬请期待</div>
-        </div>
+          <div class="text-cyan-glow text-3xl group-hover:translate-x-1 transition">→</div>
+        </a>
       </div>
 
-      <div class="mt-12 bg-bg-soft/50 border border-border-soft rounded-2xl p-6">
-        <h3 class="font-semibold mb-3 flex items-center gap-2">
-          <span class="text-cyan-glow">ℹ</span> macOS 首次打开提示
-        </h3>
-        <p class="text-text-sec text-sm leading-relaxed mb-3">
-          Cortex 暂未购买苹果开发者签名（节省成本），首次启动会弹出"无法验证开发者"。请按以下方式放行：
-        </p>
-        <ol class="text-text-sec text-sm space-y-2 list-decimal list-inside">
-          <li>双击 Cortex.app → 弹出警告 → 点"完成"（不要点"移到废纸篓"）</li>
-          <li>打开"系统设置 → 隐私与安全性"，滚到底，看到 "Cortex 已被阻止" → 点<strong class="text-text-pri">"仍要打开"</strong></li>
-          <li>或者一行命令直接放行：</li>
-        </ol>
-        <pre class="bg-bg-deep rounded-lg p-3 mt-3 text-xs font-mono text-text-pri overflow-x-auto">xattr -dr com.apple.quarantine /Applications/Cortex.app</pre>
+      <p class="text-center text-text-dim text-xs mt-6">
+        所有版本来自
+        <a href="https://github.com/luozihuan1120/cortex-website/releases/latest" class="text-cyan-glow hover:underline">GitHub Releases</a>
+        · Linux 版规划中
+      </p>
+
+      <div class="mt-12 grid md:grid-cols-2 gap-6">
+        <div class="bg-bg-soft/50 border border-border-soft rounded-2xl p-6">
+          <h3 class="font-semibold mb-3 flex items-center gap-2">
+            <span class="text-cyan-glow">🍎</span> macOS 首次打开
+          </h3>
+          <p class="text-text-sec text-sm leading-relaxed mb-3">
+            Cortex 暂未购买苹果开发者签名（¥99/年），首次启动会弹"无法验证开发者"。放行方法：
+          </p>
+          <ol class="text-text-sec text-sm space-y-1 list-decimal list-inside">
+            <li>双击 Cortex.app → 弹警告 → 点"完成"</li>
+            <li>系统设置 → 隐私与安全性 → 底部"仍要打开"</li>
+            <li>或终端跑：</li>
+          </ol>
+          <pre class="bg-bg-deep rounded-lg p-3 mt-3 text-xs font-mono text-text-pri overflow-x-auto">xattr -dr com.apple.quarantine /Applications/Cortex.app</pre>
+        </div>
+
+        <div class="bg-bg-soft/50 border border-border-soft rounded-2xl p-6">
+          <h3 class="font-semibold mb-3 flex items-center gap-2">
+            <span class="text-cyan-glow">🪟</span> Windows 首次打开
+          </h3>
+          <p class="text-text-sec text-sm leading-relaxed mb-3">
+            Windows SmartScreen 会拦截未签名应用（同上：未买代码签名证书）。放行方法：
+          </p>
+          <ol class="text-text-sec text-sm space-y-1 list-decimal list-inside">
+            <li>双击 Cortex-Setup.exe</li>
+            <li>SmartScreen 弹"未识别的应用" → 点<strong class="text-text-pri">"更多信息"</strong></li>
+            <li>下方出现按钮"仍要运行" → 点它</li>
+          </ol>
+          <p class="text-text-dim text-xs mt-3">部分杀软可能误报，请加白名单后再装。</p>
+        </div>
       </div>
     </div>
   </section>
@@ -353,26 +368,5 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    // 简单的下载按钮处理（实际链接占位）
-    document.querySelectorAll('[data-download]').forEach((el) => {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        const variant = el.dataset.download;
-        // TODO: 替换成实际下载地址（OSS / R2 / GitHub Releases）
-        const urls = {
-          'mac-arm64': '',
-          'mac-x64': '',
-        };
-        const url = urls[variant];
-        if (!url) {
-          alert('下载地址正在配置中。临时方案：私信微信获取安装包。');
-          return;
-        }
-        window.location.href = url;
-      });
-    });
-  </script>
 </body>
 </html>

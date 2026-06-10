@@ -1,8 +1,8 @@
 # Cortex · 智枢
 
-> AI 驱动的加密货币量化交易桌面应用
+> AI 驱动的加密货币量化交易桌面应用 · 一次买断 · 本地运行
 
-[下载](https://github.com/luozihuan1120/cortex-website/releases/latest) · [FAQ](https://luozihuan1120.github.io/cortex-website/#faq)
+[官网](https://luozihuan1120.github.io/cortex-website/) · [下载 v0.1.0](https://github.com/luozihuan1120/cortex-website/releases/latest) · [FAQ](https://luozihuan1120.github.io/cortex-website/#faq)
 
 ---
 
@@ -23,12 +23,28 @@ Cortex 是一款**本地运行**的加密货币量化交易桌面应用。你在
 - 在交易所原生 App 里手动挂网格、复制 KOL 策略，想换个更专业工具的人
 - 希望 API key 不交给任何云服务的安全洁癖者
 
+## 下载
+
+最新版本 **v0.1.0**：
+
+| 平台 | 文件 | 大小 |
+|---|---|---|
+| macOS Apple Silicon (M 系列) | [Cortex-0.1.0-arm64.dmg](https://github.com/luozihuan1120/cortex-website/releases/download/v0.1.0/Cortex-0.1.0-arm64.dmg) | 122 MB |
+| macOS Intel | [Cortex-0.1.0-x64.dmg](https://github.com/luozihuan1120/cortex-website/releases/download/v0.1.0/Cortex-0.1.0-x64.dmg) | 126 MB |
+| Windows 10 / 11 (x64) | [Cortex-0.1.0-Setup.exe](https://github.com/luozihuan1120/cortex-website/releases/download/v0.1.0/Cortex-0.1.0-Setup.exe) | 96 MB |
+
+Linux 版规划中。
+
+> ⚠️ 暂未购买代码签名证书，首次启动会被系统拦截。详见[官网下载区](https://luozihuan1120.github.io/cortex-website/#download)的放行教程。
+
 ## 怎么开始
 
-1. [下载安装包](https://github.com/luozihuan1120/cortex-website/releases/latest)（macOS DMG，Windows 即将推出）
-2. 装上启动，首次会让你选模拟盘还是实盘
-3. 设置里挂上交易所 API（**只勾交易权限，不要勾提现**）
-4. 策略市场挑一个，跑起来
+1. 下载装好启动 Cortex
+2. 激活页会显示你的**机器码**（XXXX-XXXX-XXXX-XXXX）
+3. 把机器码发我，付款后会拿到一串 **88 字符激活码**
+4. 粘到 Cortex 激活页 → 完事
+5. 设置里挂上交易所 API（**只勾交易权限，不要勾提现**）
+6. 策略市场挑一个，跑起来
 
 ## 风险提示
 
