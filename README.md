@@ -1,82 +1,51 @@
-# Cortex 官网 · cortex-website
+# Cortex · 智枢
 
-[Cortex 智枢](https://github.com/yourname/cortex) 的产品落地页 — 单页 HTML，无构建步骤，直接由 GitHub Pages 托管。
+> AI 驱动的加密货币量化交易桌面应用
 
-## 本地预览
+[官网](https://luozihuan1120.github.io/cortex-website/) · [下载](https://github.com/luozihuan1120/cortex-website/releases/latest) · [FAQ](https://luozihuan1120.github.io/cortex-website/#faq)
 
-```bash
-# 任意静态服务器都行，举例：
-python3 -m http.server 8000
-# 然后打开 http://127.0.0.1:8000
-```
+---
 
-或者直接双击 `index.html`，浏览器里也能跑（Tailwind 走 CDN）。
+## 是什么
 
-## 部署到 GitHub Pages（5 分钟）
+Cortex 是一款**本地运行**的加密货币量化交易桌面应用。你在自己的电脑上挂上交易所 API key，挑一个策略，调几个参数，剩下的交给 Cortex。
 
-### 1. 在 GitHub 建公开仓
+- 🧠 **AI 调参** — 内置 GPT / Claude，帮你解读市况、复盘交易
+- 🔗 **三大交易所** — Binance / OKX / Bybit · 现货 + 合约全支持
+- 🔒 **本地优先** — API key AES-256 加密存本机，不上传任何数据
+- 🛡 **紧急控制** — 一键撤单 / 强制平仓 / 全部停止
+- 📊 **回测 + 模拟盘** — 实盘前先用真行情 + 假资金练手
+- 🔔 **实时通知** — 策略动作推送邮件 / Telegram
 
-打开 https://github.com/new
+## 谁适合用
 
-- Repository name: `cortex-website`（或随意）
-- **Public**
-- 不要勾 README（这边已经写好了）
+- 想自动跑量化但不想学 Python 写代码的交易者
+- 在交易所原生 App 里手动挂网格、复制 KOL 策略，想换个更专业工具的人
+- 希望 API key 不交给任何云服务的安全洁癖者
 
-### 2. 推送代码
+## 怎么开始
 
-```bash
-cd /Users/mac/Documents/knowledge/trade/cortex-website
-git init
-git add .
-git commit -m "init: Cortex landing page"
-git branch -M main
-git remote add origin git@github.com:yourname/cortex-website.git
-git push -u origin main
-```
+1. [下载安装包](https://github.com/luozihuan1120/cortex-website/releases/latest)（macOS DMG，Windows 即将推出）
+2. 装上启动，首次会让你选模拟盘还是实盘
+3. 设置里挂上交易所 API（**只勾交易权限，不要勾提现**）
+4. 策略市场挑一个，跑起来
 
-### 3. 开启 Pages
+## 定价
 
-在仓库页面：
+**¥499 一次性买断**。一台电脑一个码，永久有效，所有版本更新免费。
 
-1. **Settings** → 左侧 **Pages**
-2. **Source** → 选 `Deploy from a branch`
-3. **Branch** → `main` / `/ (root)` → Save
-4. 等 1~2 分钟，回到 Pages 页面看到 ✅ `Your site is live at https://yourname.github.io/cortex-website/`
+试用免费——下载装上就能浏览界面、跑模拟盘。**启动实盘策略**这一步才需要 license。
 
-## 绑自定义域名（可选）
+加我微信购买，请见[官网底部](https://luozihuan1120.github.io/cortex-website/#contact)。
 
-如果你有域名（比如 `cortex.fenxianglife.com`）：
+## 风险提示
 
-1. 在域名 DNS 控制台加一条 **CNAME** 记录：
-   - 主机记录：`cortex`（或 `@`）
-   - 记录值：`yourname.github.io`
-2. 仓库根目录加一个 `CNAME` 文件，内容就是 `cortex.fenxianglife.com`
-3. Settings → Pages → Custom domain 里填这个域名 → Save
-4. 等 DNS 生效（10 分钟 ~ 几小时），GitHub 自动给你签 HTTPS 证书
+加密货币交易具有高风险。Cortex 是工具，不是顾问，不构成任何投资建议。所有交易决策和后果由你自己负责。建议任何策略上实盘前先在模拟盘跑一周。
 
-## 待办
+## 关于这个仓库
 
-在正式发布前需要修改 `index.html`：
+本仓库是 [Cortex 官网](https://luozihuan1120.github.io/cortex-website/) 的源码，纯静态单页 HTML，由 GitHub Pages 托管。Cortex 应用本身**不开源**。
 
-- [ ] 第 ~245 行 `[ 微信二维码占位 ]` — 换成你的真实微信二维码（建议 `assets/wechat-qr.png` 再 `<img src="...">`）
-- [ ] 第 ~330 行 `urls` — 替换成实际的 DMG 下载链接（阿里云 OSS / Cloudflare R2 / 其他 CDN）
-- [ ] 顶部 nav 的 Cortex logo 字号 / 主标语，看心情可改
-- [ ] FAQ 末尾"开源吗"一条根据实际策略调整
+---
 
-## 文件结构
-
-```
-cortex-website/
-├── index.html      # 全部页面（单文件）
-├── README.md       # 本文档
-└── CNAME           # （可选）自定义域名
-```
-
-后续如果加截图：
-```
-assets/
-├── screenshots/
-│   ├── dashboard.png
-│   └── strategy-detail.png
-└── wechat-qr.png
-```
+© 2026 Cortex · 智枢
