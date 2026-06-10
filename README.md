@@ -2,7 +2,7 @@
 
 > AI 驱动的加密货币量化交易桌面应用
 
-[官网](https://luozihuan1120.github.io/cortex-website/) · [下载](https://github.com/luozihuan1120/cortex-website/releases/latest) · [FAQ](https://luozihuan1120.github.io/cortex-website/#faq)
+[下载](https://github.com/luozihuan1120/cortex-website/releases/latest) · [FAQ](https://luozihuan1120.github.io/cortex-website/#faq)
 
 ---
 
@@ -30,13 +30,9 @@ Cortex 是一款**本地运行**的加密货币量化交易桌面应用。你在
 3. 设置里挂上交易所 API（**只勾交易权限，不要勾提现**）
 4. 策略市场挑一个，跑起来
 
-## 定价
+## 怎么买
 
-**¥499 一次性买断**。一台电脑一个码，永久有效，所有版本更新免费。
-
-试用免费——下载装上就能浏览界面、跑模拟盘。**启动实盘策略**这一步才需要 license。
-
-加我微信购买，请见[官网底部](https://luozihuan1120.github.io/cortex-website/#contact)。
+试用免费——下载装上就能浏览界面、跑模拟盘。启动实盘策略需要 license。加微信购买，详见[官网底部](https://luozihuan1120.github.io/cortex-website/#contact)。
 
 ## 风险提示
 

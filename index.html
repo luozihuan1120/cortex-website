@@ -94,7 +94,6 @@
       <div class="hidden md:flex items-center gap-8 text-sm text-text-sec">
         <a href="#features" class="hover:text-text-pri transition">特性</a>
         <a href="#how" class="hover:text-text-pri transition">流程</a>
-        <a href="#pricing" class="hover:text-text-pri transition">定价</a>
         <a href="#faq" class="hover:text-text-pri transition">FAQ</a>
       </div>
       <a href="#download" class="gradient-bg text-bg-deep px-4 py-1.5 rounded-lg text-sm font-semibold hover:opacity-90 transition">下载</a>
@@ -124,13 +123,12 @@
           <span>⬇</span>
           <span>下载 Mac 版</span>
         </a>
-        <a href="#pricing" class="px-8 py-3 rounded-xl border border-border-soft text-text-pri hover:border-cyan-glow/50 transition font-medium">
-          查看定价
+        <a href="#features" class="px-8 py-3 rounded-xl border border-border-soft text-text-pri hover:border-cyan-glow/50 transition font-medium">
+          看看能做什么
         </a>
       </div>
 
       <div class="mt-16 flex flex-wrap justify-center gap-x-8 gap-y-3 text-xs text-text-dim">
-        <span>✓ 一次性买断</span>
         <span>✓ 本地运行 不上传数据</span>
         <span>✓ 模拟盘随便练</span>
         <span>✓ AI 多模型支持</span>
@@ -232,46 +230,6 @@
           <h3 class="text-lg font-bold mb-2">挑策略跑起来</h3>
           <p class="text-text-sec text-sm leading-relaxed">从策略市场挑一个、调几个参数、点启动。Cortex 接管，你看看仪表盘就行。</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 定价 -->
-  <section id="pricing" class="py-24 px-6">
-    <div class="max-w-3xl mx-auto">
-      <div class="text-center mb-16">
-        <div class="text-xs text-cyan-glow uppercase tracking-widest mb-3">定价</div>
-        <h2 class="text-3xl md:text-4xl font-bold">一次买断，终身使用</h2>
-        <p class="text-text-sec mt-4">不订阅、不抽佣、不收割。一次付款用到天荒地老。</p>
-      </div>
-
-      <div class="gradient-border rounded-3xl p-10 glow">
-        <div class="text-center">
-          <div class="text-cyan-glow text-sm uppercase tracking-widest mb-3">Cortex Pro</div>
-          <div class="flex items-baseline justify-center gap-2 mb-2">
-            <span class="text-6xl font-bold gradient-text">¥499</span>
-            <span class="text-text-sec">/ 永久</span>
-          </div>
-          <p class="text-text-dim text-sm">一台电脑一个码 · 含所有功能 · 含未来版本更新</p>
-        </div>
-
-        <div class="border-t border-border-soft my-8"></div>
-
-        <ul class="space-y-3 mb-8">
-          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>三大交易所 · 现货 + 合约全支持</span></li>
-          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>AI 调参 · 内置 GPT / Claude / 等等</span></li>
-          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>策略市场 · 多种内置策略可直接套用</span></li>
-          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>回测引擎 + 参数寻优</span></li>
-          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>模拟盘 · 用真行情练手不花钱</span></li>
-          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>邮件 / Telegram 通知</span></li>
-          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>本地运行 · 数据零上传</span></li>
-          <li class="flex items-start gap-3 text-sm"><span class="text-cyan-glow mt-0.5">✓</span><span>免费版本更新（v2 / v3 ...）</span></li>
-        </ul>
-
-        <a href="#download" class="block w-full gradient-bg text-bg-deep text-center py-3 rounded-xl font-semibold hover:opacity-90 transition">
-          下载试用 → 联系购买
-        </a>
-        <p class="text-center text-xs text-text-dim mt-3">未激活时可用所有功能浏览界面，启动策略需要 license</p>
       </div>
     </div>
   </section>
@@ -384,61 +342,11 @@
 
         <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
           <summary class="font-semibold cursor-pointer flex items-center justify-between">
-            <span>没买之前能不能先看看？</span>
-            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
-          </summary>
-          <p class="mt-4 text-text-sec text-sm leading-relaxed">
-            可以。下载装上就能浏览界面、看策略列表、跑模拟盘看回测结果。只有"启动实盘策略"这一步需要 license。
-          </p>
-        </details>
-
-        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
-          <summary class="font-semibold cursor-pointer flex items-center justify-between">
-            <span>换电脑了怎么办？</span>
-            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
-          </summary>
-          <p class="mt-4 text-text-sec text-sm leading-relaxed">
-            微信发我新机器码 + 旧 license 编号，我把绑定切到新机器。每年免费切一次，超过算工本费 ¥50 一次。
-          </p>
-        </details>
-
-        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
-          <summary class="font-semibold cursor-pointer flex items-center justify-between">
             <span>Cortex 推荐我做什么策略？</span>
             <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
           </summary>
           <p class="mt-4 text-text-sec text-sm leading-relaxed">
             Cortex 是工具不是顾问。内置网格 / 趋势跟踪 / 均值回归 / DCA 等经典策略，参数你定。AI 助手能基于市况给建议，但最终决策由你。所有策略都强制建议你先在模拟盘跑一周。
-          </p>
-        </details>
-
-        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
-          <summary class="font-semibold cursor-pointer flex items-center justify-between">
-            <span>会和我抢手动交易吗？</span>
-            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
-          </summary>
-          <p class="mt-4 text-text-sec text-sm leading-relaxed">
-            不会。Cortex 定位是量化工具，从 v1.5 起完全移除了手动下单页——那活儿交易所原生 App 做得好得多。Cortex 只管自动执行策略。
-          </p>
-        </details>
-
-        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
-          <summary class="font-semibold cursor-pointer flex items-center justify-between">
-            <span>开源吗？</span>
-            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
-          </summary>
-          <p class="mt-4 text-text-sec text-sm leading-relaxed">
-            目前闭源，未来不排除核心引擎部分开源。如果你是机构客户需要审计源码，可单独联系。
-          </p>
-        </details>
-
-        <details class="group bg-bg-card border border-border-soft rounded-xl p-6 hover:border-cyan-glow/30 transition">
-          <summary class="font-semibold cursor-pointer flex items-center justify-between">
-            <span>未来涨价吗？</span>
-            <span class="text-text-sec group-open:rotate-180 transition">⌄</span>
-          </summary>
-          <p class="mt-4 text-text-sec text-sm leading-relaxed">
-            早期 ¥499 是种子价。随功能增加价格会逐步上调。已经买的客户永远不补差，所有版本更新免费。
           </p>
         </details>
       </div>
