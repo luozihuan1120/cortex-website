@@ -194,10 +194,24 @@
       <section id="ai-key">
         <h2>5. AI 模型配置</h2>
         <p>设置页 → <strong>🤖 AI 平台 API Key</strong>。可选配置，不配也能跑策略，只是用不了 AI 分析。</p>
+
+        <h3>支持的 5 家 AI 平台（2026-06 最新）</h3>
         <ul>
-          <li><strong>OpenAI</strong> — 填 OpenAI 官方 sk-... key</li>
-          <li><strong>Claude (Anthropic)</strong> — 填 anthropic sk-ant-... key</li>
+          <li><strong>OpenAI</strong> — sk-... key，主推 <code>gpt-5.4-mini</code>（默认）/ <code>gpt-5.5</code> / <code>gpt-5.5-pro</code></li>
+          <li><strong>Claude (Anthropic)</strong> — sk-ant-... key，默认 <code>claude-sonnet-4-6</code></li>
+          <li><strong>DeepSeek</strong> — 国内/海外都能用，默认 <code>deepseek-v4-flash</code>（便宜）；旗舰 <code>deepseek-v4-pro</code></li>
+          <li><strong>通义千问</strong> (DashScope) — 国内首选，默认 <code>qwen3.5-plus</code></li>
+          <li><strong>豆包</strong> (Volcano Engine Ark) — 字节出品，默认 <code>doubao-seed-2-0-lite-260506</code>（直接传模型名即可）</li>
         </ul>
+
+        <h3>自定义模型 ID</h3>
+        <p>在 <strong>AI 分析</strong> 页和 <strong>AI 自主交易</strong> 策略的配置中，「模型」字段是 <strong>select + 自定义</strong>组合：</p>
+        <ul>
+          <li>下拉默认列出官方支持的全部模型</li>
+          <li>最后一项 <strong>「+ 自定义 ID...」</strong>切到 text input，可手填任意官方支持的模型 ID（包括预览版、试验版等没在下拉里出现的）</li>
+          <li>豆包用户也可填 <code>ep-xxxxxx</code> 形式的 Endpoint ID（高阶用法，可在 Ark 控制台配限流/计费）</li>
+        </ul>
+
         <p>你的 AI key 直接发到对应官方 API，<strong>不经 Cortex 服务器中转</strong>（也根本没这个服务器）。</p>
       </section>
 
@@ -283,24 +297,37 @@
           <li>✦ <strong>AI 自主交易 AI Trader</strong> · 高风险（Beta） — 让大模型按你设定的边界自动决策买卖。AI 可能误判、可能违反预期、可能短时密集下单。强烈建议先用模拟盘跑 1 周。盈亏自负。</li>
         </ul>
 
-        <h3>配置好后</h3>
-        <p>点 <strong>创建</strong>，策略进入侧边栏 <strong>我的策略</strong> 页，状态为 <code>created</code>。还没跑。</p>
+        <h3>K 线周期</h3>
+        <p>从 v1.0.0 起，所有需要选周期的策略（双均线、AI 自主交易）都支持 <strong>11 档周期</strong>：</p>
+        <pre><code>1m  3m  5m  15m  30m  1h  2h  4h  6h  12h  1d</code></pre>
+        <p>回测页和 AI 分析页也是同一套周期。</p>
+
+        <h3>配置好后 — 创建时就会自动校验</h3>
+        <p>点 <strong>创建</strong>，Cortex 会先跑一遍参数 preflight：</p>
+        <ul>
+          <li><strong>blocker</strong>（红） — 严重错误，立即拦截，不允许保存。例如网格上限 ≤ 下限、双均线 fast ≥ slow、合约 AI 没设止损等</li>
+          <li><strong>warning</strong>（黄） — 不合理但还能跑，弹确认对话框让你二次确认。例如网格区间太窄、马丁倍投偏激进、DCA 间隔太短等</li>
+        </ul>
+        <p>校验通过后策略进入侧边栏 <strong>我的策略</strong> 页，状态为 <code>created</code>。<strong>编辑参数页保存时同样会校验</strong>。</p>
       </section>
 
       <!-- 11. 启动 -->
       <section id="run">
         <h2>11. 启动策略</h2>
 
-        <h3>启动前的 preflight 检查</h3>
-        <p>点策略 → 详情页 → <strong>启动</strong>。Cortex 会先跑一遍参数检查：</p>
+        <h3>启动按钮</h3>
+        <p>策略详情页右上角 <strong>▶ 启动</strong>。状态会立刻切到 <strong>🟢 运行中</strong>（脉动绿色徽章），按钮变 <strong>■ 停止</strong>。</p>
+
+        <h3>状态徽章一览</h3>
         <ul>
-          <li><strong>阻断项 blocker</strong>（红） — 即使强制也不让跑。例如合约策略没设止损、网格上下限反了、仓位 100% 等</li>
-          <li><strong>警告 warning</strong>（黄） — 提醒但允许继续。例如步长太密、滑点设得很大等</li>
+          <li><strong>🟢 运行中</strong>（脉动） — 策略正在调度</li>
+          <li><strong>🔴 错误</strong> — on_start 失败或 tick 异常，详见通知面板</li>
+          <li><strong>🟡 已暂停</strong> — 系统检测到外部干预 / 连败冷却等</li>
+          <li><strong>⚪ 已停止 / 未启动</strong> — 不在调度</li>
         </ul>
-        <p>warning 弹窗会让你点 <strong>"仍要启动"</strong> 二次确认。blocker 则必须改参数才能启动。</p>
 
         <h3>启动后</h3>
-        <p>状态变成 <code>running</code>，左下角侧边栏会有跑动指示灯 + 计数器。所有下单、成交、错误都进入<strong>通知</strong>面板（右上角铃铛）。</p>
+        <p>侧边栏 <strong>🛑 紧急停止 (N)</strong> 按钮会显示运行中策略数。所有下单、成交、错误都进入<strong>通知</strong>面板（右上角铃铛）。</p>
       </section>
 
       <!-- 12. 紧急控制 -->
@@ -348,12 +375,29 @@
       <!-- 14. AI 分析 -->
       <section id="ai-advisor">
         <h2>14. AI 分析</h2>
-        <p>侧边栏 <strong>AI 分析</strong>，页面标题 <strong>AI 智能分析</strong>。前提：你已在设置里配了 OpenAI / Claude key。</p>
+        <p>侧边栏 <strong>AI 分析</strong>，页面标题 <strong>AI 智能分析</strong>。前提：你已在设置里配了任一家 AI 平台的 API key（OpenAI / Claude / DeepSeek / Qwen / 豆包）。</p>
+
+        <h3>输入</h3>
         <ul>
-          <li>聊天界面，可问"现在 BTC 趋势怎么看"、"我这套网格参数合理吗"</li>
-          <li>支持把当前策略状态、最近成交、当前持仓<strong>作为上下文</strong>传给 AI</li>
-          <li>支持 streaming 输出（边生成边显示）</li>
+          <li>选 AI 厂商 + 模型（下拉 + 可自定义 ID）</li>
+          <li>选交易所 + 交易对 + K 线周期（11 档可选，最细 1m）</li>
+          <li>补充说明：自由文本，比如"我已持有现货仓位想加仓"</li>
         </ul>
+
+        <h3>Cortex 会自动注入这些上下文</h3>
+        <ul>
+          <li>最近 30 根 K 线（OHLCV）</li>
+          <li>当前盘口 ticker</li>
+          <li><strong>你在该交易所 + 该币种的真实持仓</strong>（现货余额 + 合约持仓 + 均价 + 未实现盈亏） — 前提是该交易所配了 API key</li>
+        </ul>
+        <p>AI 会基于真实仓位给"加仓 / 减仓 / 持有"的具体建议，而不是只讲行情。</p>
+
+        <h3>输出</h3>
+        <ul>
+          <li>Streaming 输出（边生成边显示）</li>
+          <li>覆盖：价格行为 · 量价关系 · 短期方向偏向 · 主要风险 · 仓位建议</li>
+        </ul>
+
         <p>AI 给的是<strong>建议不是指令</strong>，最终决策由你。</p>
       </section>
 
