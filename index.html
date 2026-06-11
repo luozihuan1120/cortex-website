@@ -17,15 +17,15 @@
       theme: {
         extend: {
           colors: {
-            'bg-deep': '#0a0e1a',
-            'bg-card': '#131826',
-            'bg-soft': '#1a2032',
-            'border-soft': 'rgba(148, 163, 184, 0.12)',
-            'text-pri': '#e2e8f0',
-            'text-sec': '#94a3b8',
-            'text-dim': '#64748b',
-            'cyan-glow': '#22d3ee',
-            'violet-glow': '#a78bfa',
+            'bg-deep': '#ffffff',
+            'bg-card': '#ffffff',
+            'bg-soft': '#f8fafc',
+            'border-soft': '#e2e8f0',
+            'text-pri': '#0f172a',
+            'text-sec': '#475569',
+            'text-dim': '#94a3b8',
+            'cyan-glow': '#0891b2',
+            'violet-glow': '#7c3aed',
           },
           fontFamily: {
             sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'PingFang SC', 'sans-serif'],
@@ -36,35 +36,37 @@
     };
   </script>
   <style>
-    body { background: #0a0e1a; color: #e2e8f0; }
+    body { background: #ffffff; color: #0f172a; }
     .gradient-text {
-      background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%);
+      background: linear-gradient(135deg, #0891b2 0%, #7c3aed 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
     .gradient-bg {
-      background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%);
+      background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
     }
     .gradient-border {
       position: relative;
-      background: linear-gradient(#131826, #131826) padding-box,
-                  linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%) border-box;
+      background: linear-gradient(#ffffff, #ffffff) padding-box,
+                  linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%) border-box;
       border: 1px solid transparent;
     }
     .glow {
-      box-shadow: 0 0 40px rgba(34, 211, 238, 0.15), 0 0 80px rgba(167, 139, 250, 0.08);
+      box-shadow: 0 10px 30px -10px rgba(8, 145, 178, 0.25), 0 20px 40px -20px rgba(124, 58, 237, 0.2);
     }
     .hero-bg::before {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(60% 50% at 50% 0%, rgba(34, 211, 238, 0.15) 0%, transparent 70%),
-        radial-gradient(40% 40% at 80% 30%, rgba(167, 139, 250, 0.12) 0%, transparent 70%);
+        radial-gradient(70% 60% at 50% 0%, rgba(6, 182, 212, 0.12) 0%, transparent 70%),
+        radial-gradient(50% 50% at 80% 30%, rgba(139, 92, 246, 0.10) 0%, transparent 70%);
       pointer-events: none;
     }
     .nav-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    /* 卡片：白底 + 细边 + 柔影，hover 时边变彩色 */
+    section .card, [class~="card"] { box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.06); }
     @keyframes pulse-dot {
       0%, 100% { transform: scale(1); opacity: 1; }
       50% { transform: scale(1.4); opacity: 0.6; }
@@ -76,7 +78,7 @@
 <body class="min-h-screen font-sans">
 
   <!-- 顶部导航 -->
-  <nav class="fixed top-0 left-0 right-0 z-50 nav-blur bg-bg-deep/70 border-b border-border-soft">
+  <nav class="fixed top-0 left-0 right-0 z-50 nav-blur bg-white/80 border-b border-border-soft">
     <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
       <a href="#top" class="flex items-center gap-2 text-lg font-bold tracking-widest">
         <svg width="22" height="22" viewBox="0 0 120 120">
@@ -104,7 +106,7 @@
   <!-- Hero -->
   <section id="top" class="relative hero-bg pt-32 pb-24 px-6 overflow-hidden">
     <div class="max-w-5xl mx-auto text-center relative">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border-soft bg-bg-card/50 text-xs text-text-sec mb-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border-soft bg-bg-soft text-xs text-text-sec mb-8">
         <span class="w-1.5 h-1.5 rounded-full bg-cyan-glow pulse-dot"></span>
         v0.1.0 首发 · macOS + Windows · 支持 Binance / OKX / Bybit
       </div>
@@ -204,7 +206,7 @@
   </section>
 
   <!-- 工作流程 -->
-  <section id="how" class="py-24 px-6 bg-bg-card/30">
+  <section id="how" class="py-24 px-6 bg-bg-soft">
     <div class="max-w-5xl mx-auto">
       <div class="text-center mb-16">
         <div class="text-xs text-cyan-glow uppercase tracking-widest mb-3">怎么开始</div>
@@ -236,7 +238,7 @@
   </section>
 
   <!-- 下载 -->
-  <section id="download" class="py-24 px-6 bg-bg-card/30">
+  <section id="download" class="py-24 px-6 bg-bg-soft">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-12">
         <div class="text-xs text-cyan-glow uppercase tracking-widest mb-3">下载</div>
@@ -283,7 +285,7 @@
       </p>
 
       <div class="mt-12 grid md:grid-cols-2 gap-6">
-        <div class="bg-bg-soft/50 border border-border-soft rounded-2xl p-6">
+        <div class="bg-bg-soft border border-border-soft rounded-2xl p-6">
           <h3 class="font-semibold mb-3 flex items-center gap-2">
             <span class="text-cyan-glow">🍎</span> macOS 首次打开
           </h3>
@@ -298,7 +300,7 @@
           <pre class="bg-bg-deep rounded-lg p-3 mt-3 text-xs font-mono text-text-pri overflow-x-auto">xattr -dr com.apple.quarantine /Applications/Cortex.app</pre>
         </div>
 
-        <div class="bg-bg-soft/50 border border-border-soft rounded-2xl p-6">
+        <div class="bg-bg-soft border border-border-soft rounded-2xl p-6">
           <h3 class="font-semibold mb-3 flex items-center gap-2">
             <span class="text-cyan-glow">🪟</span> Windows 首次打开
           </h3>
@@ -317,7 +319,7 @@
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="py-24 px-6 bg-bg-card/30">
+  <section id="faq" class="py-24 px-6 bg-bg-soft">
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-16">
         <div class="text-xs text-cyan-glow uppercase tracking-widest mb-3">常见问题</div>
