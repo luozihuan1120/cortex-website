@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cortex 操作手册</title>
+  <meta name="description" content="Cortex 智枢 v0.1.0 操作手册 — 安装 / 激活 / 配置 / 跑策略 / 紧急处置 / 故障排查" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2322D3EE'/%3E%3Cstop offset='100%25' stop-color='%23A78BFA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M 90 35 A 35 35 0 1 0 90 85' fill='none' stroke='url(%23g)' stroke-width='10' stroke-linecap='round'/%3E%3Ccircle cx='60' cy='60' r='5' fill='white'/%3E%3C/svg%3E" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0a0e1a; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", sans-serif; }
+    .gradient-text { background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .gradient-bg { background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%); }
+    .nav-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    html { scroll-behavior: smooth; }
+    .doc-section h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; padding-top: 1rem; }
+    .doc-section h3 { font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #e2e8f0; }
+    .doc-section p, .doc-section li { color: #94a3b8; line-height: 1.75; font-size: 0.95rem; }
+    .doc-section ul, .doc-section ol { padding-left: 1.5rem; margin-top: 0.5rem; }
+    .doc-section ul { list-style: disc; }
+    .doc-section ol { list-style: decimal; }
+    .doc-section code { background: #131826; color: #22d3ee; padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.85em; }
+    .doc-section pre { background: #131826; padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 0.75rem 0; }
+    .doc-section pre code { background: transparent; padding: 0; }
+    .doc-section strong { color: #e2e8f0; }
+    .doc-section a { color: #22d3ee; }
+    .doc-section a:hover { text-decoration: underline; }
+    .doc-section blockquote { border-left: 3px solid #22d3ee; padding-left: 1rem; margin: 1rem 0; color: #94a3b8; font-style: normal; background: rgba(34, 211, 238, 0.05); padding: 0.75rem 1rem; border-radius: 4px; }
+    .toc-link { display: block; padding: 0.375rem 0.75rem; border-radius: 6px; color: #94a3b8; font-size: 0.875rem; transition: all 0.15s; border-left: 2px solid transparent; }
+    .toc-link:hover { background: rgba(34, 211, 238, 0.05); color: #22d3ee; border-left-color: #22d3ee; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- 顶部导航 -->
+  <nav class="fixed top-0 left-0 right-0 z-50 nav-blur bg-[#0a0e1a]/70 border-b border-slate-700/30">
+    <div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="/cortex-website/" class="flex items-center gap-2 text-lg font-bold tracking-widest">
+        <svg width="22" height="22" viewBox="0 0 120 120">
+          <defs>
+            <linearGradient id="nav-g" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#22D3EE" />
+              <stop offset="100%" stop-color="#A78BFA" />
+            </linearGradient>
+          </defs>
+          <path d="M 90 35 A 35 35 0 1 0 90 85" fill="none" stroke="url(#nav-g)" stroke-width="14" stroke-linecap="round" />
+          <circle cx="60" cy="60" r="6" fill="#fff" />
+        </svg>
+        <span class="gradient-text">CORTEX</span>
+        <span class="text-slate-500 font-normal text-sm tracking-normal hidden sm:inline">· 操作手册</span>
+      </a>
+      <a href="/cortex-website/" class="text-sm text-slate-400 hover:text-slate-100">← 返回首页</a>
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-6 pt-24 pb-16 grid lg:grid-cols-[220px_1fr] gap-10">
+
+    <!-- 侧栏目录（PC 端固定） -->
+    <aside class="hidden lg:block">
+      <div class="sticky top-20 space-y-1">
+        <div class="text-xs uppercase tracking-widest text-slate-500 px-3 py-2">目录</div>
+        <a href="#install" class="toc-link">1. 安装</a>
+        <a href="#activate" class="toc-link">2. 激活</a>
+        <a href="#onboarding" class="toc-link">3. 首次设置</a>
+        <a href="#exchange-key" class="toc-link">4. 交易所 API</a>
+        <a href="#ai-key" class="toc-link">5. AI 模型</a>
+        <a href="#notifications" class="toc-link">6. 通知（邮件 / Telegram）</a>
+        <a href="#paper" class="toc-link">7. 模拟盘</a>
+        <a href="#strategy" class="toc-link">8. 策略：挑选与配置</a>
+        <a href="#run" class="toc-link">9. 启动策略</a>
+        <a href="#emergency" class="toc-link">10. 紧急控制</a>
+        <a href="#backtest" class="toc-link">11. 回测</a>
+        <a href="#ai-advisor" class="toc-link">12. AI 顾问</a>
+        <a href="#wallet" class="toc-link">13. 钱包视图</a>
+        <a href="#dashboard" class="toc-link">14. 主控台</a>
+        <a href="#troubleshoot" class="toc-link">15. 故障排查</a>
+      </div>
+    </aside>
+
+    <!-- 正文 -->
+    <main class="doc-section min-w-0">
+      <header class="mb-12">
+        <h1 class="text-4xl font-bold mb-3"><span class="gradient-text">Cortex 操作手册</span></h1>
+        <p class="text-slate-400">适用于 Cortex v0.1.0 · macOS + Windows</p>
+      </header>
+
+      <!-- 1. 安装 -->
+      <section id="install">
+        <h2>1. 安装</h2>
+        <p>从<a href="/cortex-website/#download">官网下载区</a>下载对应你系统的安装包：</p>
+        <ul>
+          <li><strong>macOS Apple Silicon</strong>（M1/M2/M3/M4）→ <code>Cortex-0.1.0-arm64.dmg</code></li>
+          <li><strong>macOS Intel</strong> → <code>Cortex-0.1.0-x64.dmg</code></li>
+          <li><strong>Windows 10/11 (x64)</strong> → <code>Cortex-0.1.0-Setup.exe</code></li>
+        </ul>
+
+        <h3>macOS 首次启动放行</h3>
+        <p>未购代码签名，Gatekeeper 会拦。任选一种放行方式：</p>
+        <ol>
+          <li>双击 Cortex.app → 弹"无法验证开发者" → 点"完成"（不要"移到废纸篓"）</li>
+          <li>打开 <strong>系统设置 → 隐私与安全性</strong>，滚到底，看到 "Cortex 已被阻止" → 点 <strong>"仍要打开"</strong></li>
+        </ol>
+        <p>或者一行命令直接放行：</p>
+        <pre><code>xattr -dr com.apple.quarantine /Applications/Cortex.app</code></pre>
+
+        <h3>Windows 首次启动放行</h3>
+        <p>SmartScreen 拦截未签名应用。处理方式：</p>
+        <ol>
+          <li>双击 <code>Cortex-0.1.0-Setup.exe</code></li>
+          <li>SmartScreen 提示"未识别的应用" → 点 <strong>"更多信息"</strong></li>
+          <li>下方按钮 <strong>"仍要运行"</strong> → 安装</li>
+        </ol>
+        <blockquote>部分杀软可能误报 PyInstaller 打包二进制（UPX 压缩特征），请加白名单后再装。</blockquote>
+
+        <h3>首次启动需要等待</h3>
+        <p>Python 后端 (cortex-core) 首次启动需解压依赖，<strong>会等 15–25 秒</strong>，显示"正在启动 Cortex 核心..."。之后每次启动 1–2 秒。</p>
+      </section>
+
+      <!-- 2. 激活 -->
+      <section id="activate">
+        <h2>2. 激活</h2>
+        <p>Cortex 启动后，如果未激活会先显示一个激活页（不激活无法启动实盘策略，但可以浏览界面 / 跑模拟盘）。</p>
+
+        <h3>流程</h3>
+        <ol>
+          <li>激活页上方会显示 <strong>本机机器码</strong>，形如 <code>ABCD-EFGH-IJKL-MNOP</code>。点旁边"复制"按钮。</li>
+          <li>把机器码发给销售（参考<a href="/cortex-website/#download">官网底部联系方式</a>）。</li>
+          <li>付款后会拿到一串 <strong>88 字符激活码</strong>，类似 <code>xRq3pZm...==</code>。</li>
+          <li>回到 Cortex 激活页，粘到 <strong>激活码</strong> 输入框（也可以点"从剪贴板粘贴"自动填入）。</li>
+          <li>点 <strong>激活</strong> → 若机器码与激活码匹配，立即进入主界面。</li>
+        </ol>
+
+        <h3>常见错误</h3>
+        <ul>
+          <li><strong>"激活码与本机不匹配"</strong> — 你拿到的码是为另一台机器签的。重新申请。</li>
+          <li><strong>"激活码长度异常"</strong> — 复制时少了字符。重新复制完整的 88 字符。</li>
+          <li><strong>"激活码格式无效"</strong> — 误粘了非激活码内容（比如 URL、错位的文本）。</li>
+        </ul>
+
+        <blockquote>一台电脑一个码，换机器需要重新申请。详见<a href="/cortex-website/#faq">官网 FAQ</a>。</blockquote>
+      </section>
+
+      <!-- 3. 首次设置 -->
+      <section id="onboarding">
+        <h2>3. 首次设置（Onboarding）</h2>
+        <p>激活完成后，Cortex 会引导你做最少必需的配置。</p>
+        <ol>
+          <li><strong>选择模式</strong>：
+            <ul>
+              <li><strong>模拟盘 Paper</strong> — 用真行情 + 假资金（初始 10000 USDT）。任何新策略都建议先在这里跑一周。</li>
+              <li><strong>实盘 Live</strong> — 用真实交易所账户。直接进入交易所选择 + API 录入。</li>
+            </ul>
+          </li>
+          <li>如果选实盘，下一步选交易所（Binance / OKX / Bybit），填 API key 并测试连通性。</li>
+          <li>完成。可以随时回到 <strong>设置</strong> 页改这些。</li>
+        </ol>
+      </section>
+
+      <!-- 4. 交易所 API -->
+      <section id="exchange-key">
+        <h2>4. 交易所 API 配置</h2>
+        <p>设置页 → <strong>交易所 API Key</strong>。三家都一样的填法。</p>
+
+        <h3>权限规则（最重要的安全条款）</h3>
+        <ul>
+          <li>✅ 勾"现货 & 杠杆交易"、"合约交易"、"读取"</li>
+          <li>❌ <strong>绝对不要勾"提现"</strong> — Cortex 不需要提现权限，开了就是给自己埋雷</li>
+          <li>✅ 建议绑定 IP 白名单到你电脑的公网 IP（家庭宽带 IP 会变，但绑了就比裸跑安全得多）</li>
+        </ul>
+
+        <h3>各家差异</h3>
+        <p><strong>Binance</strong> — 只需 API Key + Secret，两项。<a href="https://www.binance.com/en/my/settings/api-management" target="_blank">创建 API</a></p>
+
+        <p><strong>OKX</strong> — 需要 API Key + Secret + <strong>Passphrase</strong>（创建 API 时自己设的独立密码），三项都要填。<a href="https://www.okx.com/account/my-api" target="_blank">创建 API</a></p>
+
+        <p><strong>Bybit</strong> — 只需 API Key + Secret。<a href="https://www.bybit.com/app/user/api-management" target="_blank">创建 API</a></p>
+
+        <h3>模拟盘 / Testnet 勾选框</h3>
+        <p>录入 API 时有一个"模拟盘 / Testnet"勾选框：</p>
+        <ul>
+          <li>✅ 勾上 — 用对应交易所的<strong>测试环境</strong>（OKX Demo / Binance Testnet / Bybit Testnet）的 API key</li>
+          <li>❌ 不勾 — 用<strong>实盘账户</strong>的 API key</li>
+        </ul>
+        <blockquote>⚠️ 错勾会报 <code>50101 APIKey does not match current environment</code>。删了 key 重录，勾对再试。</blockquote>
+
+        <h3>测试连通性</h3>
+        <p>填完后点 <strong>测试</strong>，Cortex 会调用交易所的 <code>fetch_balance</code>。成功即说明 API + 网络 + 权限三项都对。</p>
+      </section>
+
+      <!-- 5. AI -->
+      <section id="ai-key">
+        <h2>5. AI 模型配置</h2>
+        <p>设置页 → <strong>AI Key</strong>。可选配置，不配也能跑策略，只是没法用 AI 顾问。</p>
+        <ul>
+          <li><strong>OpenAI</strong> — 填 OpenAI 官方 sk-... key</li>
+          <li><strong>Claude (Anthropic)</strong> — 填 anthropic sk-ant-... key</li>
+        </ul>
+        <p>你的 AI key 直接发到对应官方 API，<strong>不经 Cortex 服务器中转</strong>（也根本没这个服务器）。</p>
+      </section>
+
+      <!-- 6. 通知 -->
+      <section id="notifications">
+        <h2>6. 通知（邮件 / Telegram）</h2>
+        <p>策略下单、异常、平仓事件可推送到邮件或 Telegram。半夜出事不漏过。</p>
+
+        <h3>邮件 (SMTP)</h3>
+        <p>设置页 → <strong>邮件通知</strong>。需要：</p>
+        <ul>
+          <li>SMTP Host + Port（如 <code>smtp.qq.com</code> + <code>465</code>）</li>
+          <li>用户名 + 密码（注意 QQ / 163 等需要"授权码"而不是登录密码）</li>
+          <li>发件人 + 收件人邮箱</li>
+        </ul>
+        <p>填完点 <strong>发送测试邮件</strong>，收到说明配置 OK。</p>
+
+        <h3>Telegram</h3>
+        <p>设置页 → <strong>Telegram 通知</strong>。需要：</p>
+        <ol>
+          <li>找 <a href="https://t.me/BotFather" target="_blank">@BotFather</a> 创建一个 bot，拿到 <code>bot_token</code></li>
+          <li>给你的 bot 发任意消息</li>
+          <li>访问 <code>https://api.telegram.org/bot&lt;TOKEN&gt;/getUpdates</code>，复制 <code>chat.id</code></li>
+          <li>把 bot_token + chat_id 填入设置页 → 点 <strong>发送测试消息</strong></li>
+        </ol>
+      </section>
+
+      <!-- 7. 模拟盘 -->
+      <section id="paper">
+        <h2>7. 模拟盘</h2>
+        <p>设置页顶部有 <strong>"🎮 模拟盘钱包"</strong>，初始 10000 USDT。</p>
+        <ul>
+          <li>用真实交易所行情，但成交全部在 Cortex 内部模拟（不会真下单）</li>
+          <li>支持点 <strong>重置钱包</strong> 把虚拟资产清零、USDT 回到 10000</li>
+          <li>任何新策略 / 新参数都<strong>建议先在模拟盘跑一周</strong>，看胜率和回撤再上实盘</li>
+        </ul>
+      </section>
+
+      <!-- 8. 策略 -->
+      <section id="strategy">
+        <h2>8. 策略：挑选与配置</h2>
+
+        <h3>从策略市场创建</h3>
+        <p>侧边栏 <strong>策略市场</strong> 列出所有内置策略类型。点一个进入配置页：</p>
+        <ul>
+          <li>选交易所 + 交易对（如 BTC/USDT）</li>
+          <li>选市场类型（spot 现货 / swap 永续）</li>
+          <li>选模式（paper 模拟盘 / live 实盘）</li>
+          <li>填策略专属参数（如网格上下限、步长、仓位百分比）</li>
+        </ul>
+
+        <h3>内置策略类型</h3>
+        <ul>
+          <li><strong>网格 Grid</strong> — 区间震荡行情，自动低买高卖</li>
+          <li><strong>趋势跟踪 Trend</strong> — 跟随均线突破方向</li>
+          <li><strong>均值回归 Mean Reversion</strong> — 偏离过远后等回归</li>
+          <li><strong>定投 DCA</strong> — 周期性买入，平摊成本</li>
+          <li><strong>AI 自主交易 AI Trader</strong> — 由 AI 看图表 / 新闻给买卖信号</li>
+        </ul>
+
+        <h3>配置好后</h3>
+        <p>点 <strong>创建</strong>，策略进入 <strong>策略列表</strong>（侧边栏"策略"项），状态为 <code>created</code>。还没跑。</p>
+      </section>
+
+      <!-- 9. 启动 -->
+      <section id="run">
+        <h2>9. 启动策略</h2>
+
+        <h3>启动前的 preflight 检查</h3>
+        <p>点策略 → 详情页 → <strong>启动</strong>。Cortex 会先跑一遍参数检查：</p>
+        <ul>
+          <li><strong>阻断项 blocker</strong>（红） — 即使强制也不让跑。例如合约策略没设止损、网格上下限反了、仓位 100% 等</li>
+          <li><strong>警告 warning</strong>（黄） — 提醒但允许继续。例如步长太密、滑点设得很大等</li>
+        </ul>
+        <p>warning 弹窗会让你点 <strong>"仍要启动"</strong> 二次确认。blocker 则必须改参数才能启动。</p>
+
+        <h3>启动后</h3>
+        <p>状态变成 <code>running</code>，左下角侧边栏会有跑动指示灯 + 计数器。所有下单、成交、错误都进入<strong>通知</strong>面板（右上角铃铛）。</p>
+      </section>
+
+      <!-- 10. 紧急控制 -->
+      <section id="emergency">
+        <h2>10. 紧急控制 🛑</h2>
+        <p>策略详情页右上角有个 <strong>🛑 紧急控制</strong> 按钮。出意外时用。</p>
+
+        <h3>三级递进操作</h3>
+        <ol>
+          <li>
+            <strong>撤销全部挂单</strong> —— 撤所有未成交挂单，策略<strong>继续跑</strong>。<br />
+            适用：行情突变想清掉旧挂单换方向，但还想让策略接管后续
+          </li>
+          <li>
+            <strong>强制市价平仓 + 停止策略</strong> —— 立刻按市价平掉持仓 + 停策略。<br />
+            <strong>需要在确认框里手动输入"强制平仓"</strong> 四个字才能执行（防误触）。<br />
+            适用：行情失控、需要立刻保命
+          </li>
+          <li>
+            <strong>仅停止策略</strong> —— 停掉策略，但保留持仓和挂单。<br />
+            适用：想暂停让策略别再下新单，但仓位想自己手动管理
+          </li>
+        </ol>
+
+        <h3>全局紧急停止</h3>
+        <p>侧边栏右下角有个 <strong>"全部停止"</strong> 按钮，停掉所有运行中的策略。每个策略的 <code>on_stop</code> 会撤掉自己的挂单，所以安全。</p>
+      </section>
+
+      <!-- 11. 回测 -->
+      <section id="backtest">
+        <h2>11. 回测</h2>
+        <p>侧边栏 <strong>回测</strong>。</p>
+        <ol>
+          <li>选策略类型 + 交易对 + 时间区间</li>
+          <li>填策略参数</li>
+          <li>点 <strong>跑回测</strong> → Cortex 拉历史 K 线，模拟整段历史的成交</li>
+          <li>结果包含：总收益、胜率、最大回撤、夏普比率、所有成交明细</li>
+        </ol>
+
+        <h3>参数寻优</h3>
+        <p>选定一组想 sweep 的参数（如网格步长从 0.5% 到 2%，每 0.1% 一档），Cortex 会跑所有组合，给出收益曲面 + 最优组合推荐。</p>
+        <blockquote>过拟合警告：在历史数据上找出来的"最优参数"不保证未来好用。建议把数据切成 in-sample / out-of-sample 两段，前段优化、后段验证。</blockquote>
+      </section>
+
+      <!-- 12. AI 顾问 -->
+      <section id="ai-advisor">
+        <h2>12. AI 顾问</h2>
+        <p>侧边栏 <strong>AI 顾问</strong>。前提：你已在设置里配了 OpenAI / Claude key。</p>
+        <ul>
+          <li>聊天界面，可问"现在 BTC 趋势怎么看"、"我这套网格参数合理吗"</li>
+          <li>支持把当前策略状态、最近成交、当前持仓<strong>作为上下文</strong>传给 AI</li>
+          <li>支持 streaming 输出（边生成边显示）</li>
+        </ul>
+        <p>AI 给的是<strong>建议不是指令</strong>，最终决策由你。</p>
+      </section>
+
+      <!-- 13. 钱包 -->
+      <section id="wallet">
+        <h2>13. 钱包视图</h2>
+        <p>侧边栏 <strong>钱包</strong>。看你在每个交易所的余额、持仓、未实现盈亏。</p>
+        <ul>
+          <li>聚合所有已配置交易所的资产数据</li>
+          <li>显示总资产估值（按 USDT 计）</li>
+          <li>区分现货 / 合约持仓</li>
+        </ul>
+      </section>
+
+      <!-- 14. 主控台 -->
+      <section id="dashboard">
+        <h2>14. 主控台</h2>
+        <p>启动 Cortex 后默认看到的页面，聚合所有正在跑的策略：</p>
+        <ul>
+          <li>每个策略一卡片：名字、交易所、模式、当前盈亏、运行时长</li>
+          <li>点卡片直接进策略详情页</li>
+          <li>底部 <strong>分析摘要</strong> 区显示今日 / 本周 / 本月的累计盈亏 + 交易次数</li>
+        </ul>
+      </section>
+
+      <!-- 15. 故障排查 -->
+      <section id="troubleshoot">
+        <h2>15. 故障排查</h2>
+
+        <h3>启动卡在"正在启动 Cortex 核心..."</h3>
+        <ul>
+          <li>正常现象（首次冷启动 15–25 秒）</li>
+          <li>超过 30 秒还没好 → 看右上角是否有"Cortex 核心未启动"提示。重启 Cortex 一次。</li>
+          <li>反复出现 → 检查代理 / VPN（cortex-core 只用 127.0.0.1）</li>
+        </ul>
+
+        <h3>OKX 报 50101 错误</h3>
+        <p><code>APIKey does not match current environment</code> — 模拟盘 key 错填到实盘，或反之。重新录入 key 时<strong>正确勾选"模拟盘 / Testnet"</strong>。</p>
+
+        <h3>下单立刻被拒（Invalid Order）</h3>
+        <ul>
+          <li>仓位太小 — 各交易所有最小下单金额（通常 5–10 USDT），仓位太小会被拒</li>
+          <li>价格偏离 — 限价单价格离最新价过远，被风控拦</li>
+          <li>权限不足 — 复查 API 是否勾了"交易"权限</li>
+        </ul>
+
+        <h3>SMTP 测试发不出去</h3>
+        <ul>
+          <li>QQ / 163 邮箱需要用"授权码"不是登录密码</li>
+          <li>端口：SSL 用 465，STARTTLS 用 587</li>
+          <li>开发者邮箱被锁定？登录邮箱 web 端解锁</li>
+        </ul>
+
+        <h3>Telegram 收不到消息</h3>
+        <ul>
+          <li><strong>你必须先给 bot 发过任意消息</strong>，否则 bot 不能主动联系你（Telegram 安全策略）</li>
+          <li>chat_id 写错了？重新去 getUpdates 接口验证</li>
+        </ul>
+
+        <h3>策略启动后没下单</h3>
+        <ul>
+          <li>是否在<strong>实盘</strong>而 API 没钱？</li>
+          <li>触发条件是否还没满足（如网格还没到价位、趋势策略还没确认信号）</li>
+          <li>看通知面板有没有报错</li>
+        </ul>
+
+        <h3>清空所有本地数据重新开始</h3>
+        <p>退出 Cortex，删除数据目录，重启即可（会回到 onboarding 流程，需要重新激活）：</p>
+        <pre><code># macOS
+rm -rf ~/.cortex
+
+# Windows
+rmdir /s %USERPROFILE%\.cortex</code></pre>
+
+        <h3>反馈 / 求助</h3>
+        <p>遇到上面没列的问题，<a href="/cortex-website/#download">联系销售微信</a>，提供：</p>
+        <ul>
+          <li>错误截图 / 通知面板内容</li>
+          <li>Cortex 版本（设置页底部）</li>
+          <li>操作系统版本</li>
+          <li>哪一步触发的</li>
+        </ul>
+      </section>
+
+      <footer class="mt-20 pt-8 border-t border-slate-700/30 text-xs text-slate-500">
+        <p>本手册适用于 Cortex v0.1.0。功能更新后会随版本同步刷新。</p>
+        <p class="mt-2">© 2026 Cortex · 智枢</p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
