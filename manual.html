@@ -67,14 +67,16 @@
         <a href="#ai-key" class="toc-link">5. AI 模型</a>
         <a href="#notifications" class="toc-link">6. 通知（邮件 / Telegram）</a>
         <a href="#paper" class="toc-link">7. 模拟盘</a>
-        <a href="#strategy" class="toc-link">8. 策略：挑选与配置</a>
-        <a href="#run" class="toc-link">9. 启动策略</a>
-        <a href="#emergency" class="toc-link">10. 紧急控制</a>
-        <a href="#backtest" class="toc-link">11. 回测</a>
-        <a href="#ai-advisor" class="toc-link">12. AI 顾问</a>
-        <a href="#wallet" class="toc-link">13. 钱包视图</a>
-        <a href="#dashboard" class="toc-link">14. 主控台</a>
-        <a href="#troubleshoot" class="toc-link">15. 故障排查</a>
+        <a href="#theme" class="toc-link">8. 外观主题</a>
+        <a href="#export" class="toc-link">9. 数据导出</a>
+        <a href="#strategy" class="toc-link">10. 策略：挑选与配置</a>
+        <a href="#run" class="toc-link">11. 启动策略</a>
+        <a href="#emergency" class="toc-link">12. 紧急控制</a>
+        <a href="#backtest" class="toc-link">13. 回测</a>
+        <a href="#ai-advisor" class="toc-link">14. AI 分析</a>
+        <a href="#wallet" class="toc-link">15. 钱包</a>
+        <a href="#dashboard" class="toc-link">16. 总览</a>
+        <a href="#troubleshoot" class="toc-link">17. 故障排查</a>
       </div>
     </aside>
 
@@ -160,7 +162,7 @@
       <!-- 4. 交易所 API -->
       <section id="exchange-key">
         <h2>4. 交易所 API 配置</h2>
-        <p>设置页 → <strong>交易所 API Key</strong>。三家都一样的填法。</p>
+        <p>设置页 → <strong>💰 实盘交易所 API Key</strong>。三家都一样的填法。</p>
 
         <h3>权限规则（最重要的安全条款）</h3>
         <ul>
@@ -191,7 +193,7 @@
       <!-- 5. AI -->
       <section id="ai-key">
         <h2>5. AI 模型配置</h2>
-        <p>设置页 → <strong>AI Key</strong>。可选配置，不配也能跑策略，只是没法用 AI 顾问。</p>
+        <p>设置页 → <strong>🤖 AI 平台 API Key</strong>。可选配置，不配也能跑策略，只是用不了 AI 分析。</p>
         <ul>
           <li><strong>OpenAI</strong> — 填 OpenAI 官方 sk-... key</li>
           <li><strong>Claude (Anthropic)</strong> — 填 anthropic sk-ant-... key</li>
@@ -205,7 +207,7 @@
         <p>策略下单、异常、平仓事件可推送到邮件或 Telegram。半夜出事不漏过。</p>
 
         <h3>邮件 (SMTP)</h3>
-        <p>设置页 → <strong>邮件通知</strong>。需要：</p>
+        <p>设置页 → <strong>📬 邮件通知</strong>。需要：</p>
         <ul>
           <li>SMTP Host + Port（如 <code>smtp.qq.com</code> + <code>465</code>）</li>
           <li>用户名 + 密码（注意 QQ / 163 等需要"授权码"而不是登录密码）</li>
@@ -214,7 +216,7 @@
         <p>填完点 <strong>发送测试邮件</strong>，收到说明配置 OK。</p>
 
         <h3>Telegram</h3>
-        <p>设置页 → <strong>Telegram 通知</strong>。需要：</p>
+        <p>设置页 → <strong>✈️ Telegram 通知</strong>。需要：</p>
         <ol>
           <li>找 <a href="https://t.me/BotFather" target="_blank">@BotFather</a> 创建一个 bot，拿到 <code>bot_token</code></li>
           <li>给你的 bot 发任意消息</li>
@@ -226,7 +228,7 @@
       <!-- 7. 模拟盘 -->
       <section id="paper">
         <h2>7. 模拟盘</h2>
-        <p>设置页顶部有 <strong>"🎮 模拟盘钱包"</strong>，初始 10000 USDT。</p>
+        <p>设置页顶部 <strong>🎮 模拟盘钱包</strong>，初始 10000 USDT。</p>
         <ul>
           <li>用真实交易所行情，但成交全部在 Cortex 内部模拟（不会真下单）</li>
           <li>支持点 <strong>重置钱包</strong> 把虚拟资产清零、USDT 回到 10000</li>
@@ -234,9 +236,27 @@
         </ul>
       </section>
 
-      <!-- 8. 策略 -->
+      <!-- 8. 主题 -->
+      <section id="theme">
+        <h2>8. 外观主题</h2>
+        <p>设置页 → <strong>外观主题</strong>。支持深色 / 浅色 / 跟随系统三档。改完立即生效，无需重启。</p>
+      </section>
+
+      <!-- 9. 数据导出 -->
+      <section id="export">
+        <h2>9. 数据导出</h2>
+        <p>设置页 → <strong>📦 数据导出</strong>。把你的策略 / 订单 / 成交记录全量导出成 JSON 文件，便于：</p>
+        <ul>
+          <li>跨机器迁移（换电脑后导回）</li>
+          <li>本地存档 / 报税</li>
+          <li>外部分析（导入 Excel / Python pandas 自己分析）</li>
+        </ul>
+        <p>导出文件包含**策略配置、订单流水、成交记录、AI 决策历史**，<strong>不包含</strong>你的 API key / AI key（那些永远不离开你的电脑）。</p>
+      </section>
+
+      <!-- 10. 策略 -->
       <section id="strategy">
-        <h2>8. 策略：挑选与配置</h2>
+        <h2>10. 策略：挑选与配置</h2>
 
         <h3>从策略市场创建</h3>
         <p>侧边栏 <strong>策略市场</strong> 列出所有内置策略类型。点一个进入配置页：</p>
@@ -257,12 +277,12 @@
         </ul>
 
         <h3>配置好后</h3>
-        <p>点 <strong>创建</strong>，策略进入 <strong>策略列表</strong>（侧边栏"策略"项），状态为 <code>created</code>。还没跑。</p>
+        <p>点 <strong>创建</strong>，策略进入侧边栏 <strong>我的策略</strong> 页，状态为 <code>created</code>。还没跑。</p>
       </section>
 
-      <!-- 9. 启动 -->
+      <!-- 11. 启动 -->
       <section id="run">
-        <h2>9. 启动策略</h2>
+        <h2>11. 启动策略</h2>
 
         <h3>启动前的 preflight 检查</h3>
         <p>点策略 → 详情页 → <strong>启动</strong>。Cortex 会先跑一遍参数检查：</p>
@@ -276,15 +296,15 @@
         <p>状态变成 <code>running</code>，左下角侧边栏会有跑动指示灯 + 计数器。所有下单、成交、错误都进入<strong>通知</strong>面板（右上角铃铛）。</p>
       </section>
 
-      <!-- 10. 紧急控制 -->
+      <!-- 12. 紧急控制 -->
       <section id="emergency">
-        <h2>10. 紧急控制 🛑</h2>
-        <p>策略详情页右上角有个 <strong>🛑 紧急控制</strong> 按钮。出意外时用。</p>
+        <h2>12. 紧急控制 🛑</h2>
+        <p>策略详情页右上角有个 <strong>🛑 紧急控制</strong> 按钮（鼠标悬停会显示「紧急控制：撤销挂单 / 强制平仓」）。出意外时用。</p>
 
         <h3>三级递进操作</h3>
         <ol>
           <li>
-            <strong>撤销全部挂单</strong> —— 撤所有未成交挂单，策略<strong>继续跑</strong>。<br />
+            <strong>撤销所有挂单</strong> —— 撤所有未成交挂单，策略<strong>继续跑</strong>。<br />
             适用：行情突变想清掉旧挂单换方向，但还想让策略接管后续
           </li>
           <li>
@@ -293,18 +313,18 @@
             适用：行情失控、需要立刻保命
           </li>
           <li>
-            <strong>仅停止策略</strong> —— 停掉策略，但保留持仓和挂单。<br />
+            <strong>仅停止策略（保留持仓）</strong> —— 停掉策略，但保留持仓和挂单。<br />
             适用：想暂停让策略别再下新单，但仓位想自己手动管理
           </li>
         </ol>
 
         <h3>全局紧急停止</h3>
-        <p>侧边栏右下角有个 <strong>"全部停止"</strong> 按钮，停掉所有运行中的策略。每个策略的 <code>on_stop</code> 会撤掉自己的挂单，所以安全。</p>
+        <p>侧边栏底部有个 <strong>🛑 紧急停止 (N)</strong> 按钮（N 是当前运行中的策略数），点击后会停掉所有运行中的策略并撤销挂单。需要二次确认。</p>
       </section>
 
-      <!-- 11. 回测 -->
+      <!-- 13. 回测 -->
       <section id="backtest">
-        <h2>11. 回测</h2>
+        <h2>13. 回测</h2>
         <p>侧边栏 <strong>回测</strong>。</p>
         <ol>
           <li>选策略类型 + 交易对 + 时间区间</li>
@@ -318,10 +338,10 @@
         <blockquote>过拟合警告：在历史数据上找出来的"最优参数"不保证未来好用。建议把数据切成 in-sample / out-of-sample 两段，前段优化、后段验证。</blockquote>
       </section>
 
-      <!-- 12. AI 顾问 -->
+      <!-- 14. AI 分析 -->
       <section id="ai-advisor">
-        <h2>12. AI 顾问</h2>
-        <p>侧边栏 <strong>AI 顾问</strong>。前提：你已在设置里配了 OpenAI / Claude key。</p>
+        <h2>14. AI 分析</h2>
+        <p>侧边栏 <strong>AI 分析</strong>，页面标题 <strong>AI 智能分析</strong>。前提：你已在设置里配了 OpenAI / Claude key。</p>
         <ul>
           <li>聊天界面，可问"现在 BTC 趋势怎么看"、"我这套网格参数合理吗"</li>
           <li>支持把当前策略状态、最近成交、当前持仓<strong>作为上下文</strong>传给 AI</li>
@@ -330,10 +350,10 @@
         <p>AI 给的是<strong>建议不是指令</strong>，最终决策由你。</p>
       </section>
 
-      <!-- 13. 钱包 -->
+      <!-- 15. 钱包 -->
       <section id="wallet">
-        <h2>13. 钱包视图</h2>
-        <p>侧边栏 <strong>钱包</strong>。看你在每个交易所的余额、持仓、未实现盈亏。</p>
+        <h2>15. 钱包</h2>
+        <p>侧边栏 <strong>钱包</strong>，页面标题 <strong>💰 钱包总览</strong>。看你在每个交易所的余额、持仓、未实现盈亏。</p>
         <ul>
           <li>聚合所有已配置交易所的资产数据</li>
           <li>显示总资产估值（按 USDT 计）</li>
@@ -341,10 +361,10 @@
         </ul>
       </section>
 
-      <!-- 14. 主控台 -->
+      <!-- 16. 总览 -->
       <section id="dashboard">
-        <h2>14. 主控台</h2>
-        <p>启动 Cortex 后默认看到的页面，聚合所有正在跑的策略：</p>
+        <h2>16. 总览</h2>
+        <p>侧边栏 <strong>总览</strong>，启动 Cortex 后默认看到的页面，聚合所有正在跑的策略：</p>
         <ul>
           <li>每个策略一卡片：名字、交易所、模式、当前盈亏、运行时长</li>
           <li>点卡片直接进策略详情页</li>
@@ -352,9 +372,9 @@
         </ul>
       </section>
 
-      <!-- 15. 故障排查 -->
+      <!-- 17. 故障排查 -->
       <section id="troubleshoot">
-        <h2>15. 故障排查</h2>
+        <h2>17. 故障排查</h2>
 
         <h3>启动卡在"正在启动 Cortex 核心..."</h3>
         <ul>
