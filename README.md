@@ -1,6 +1,6 @@
 # Cortex · 智枢
 
-> AI 驱动的加密货币量化交易桌面应用 · 一次买断 · 本地运行
+> AI 驱动的加密货币量化交易桌面应用 · 本地运行
 
 [官网](https://luozihuan1120.github.io/cortex-website/) · [下载 v1.0.0](https://github.com/luozihuan1120/cortex-website/releases/latest) · [FAQ](https://luozihuan1120.github.io/cortex-website/#faq)
 
