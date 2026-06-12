@@ -117,6 +117,20 @@
 
         <h3>首次启动需要等待</h3>
         <p>Python 后端 (cortex-core) 首次启动需解压依赖，<strong>会等 15–25 秒</strong>，显示"正在启动 Cortex 核心..."。之后每次启动 1–2 秒。</p>
+
+        <h3>国内网络：交易所 API 走代理</h3>
+        <p>Binance / OKX / Bybit 的 API 在国内被墙，必须开代理。Cortex <strong>v1.0.0 起加了网络自愈</strong>——侧边栏底部每 10 秒自检 Binance，状态变化用脉动指示器实时显示：</p>
+        <ul>
+          <li>🟢 <strong>网络正常</strong> + 延迟 — 可以正常下单/拉行情</li>
+          <li>🔴 <strong>网络异常 · 点击查看</strong> — 点击会显示当前检测到的代理 + 设置指引</li>
+        </ul>
+        <p>使用方法：</p>
+        <ol>
+          <li>装 ClashX / Surge / V2Box 任一</li>
+          <li>导入订阅 → 启动</li>
+          <li>菜单栏图标 → 勾选 <strong>「设置为系统代理」</strong>（关键）</li>
+        </ol>
+        <p><strong>不需要重启 Cortex</strong>：Cortex 检测到代理后会自动重连，10 秒内侧边栏变绿，运行中的策略自动续跑。</p>
       </section>
 
       <!-- 2. 激活 -->
@@ -410,6 +424,16 @@
           <li>显示总资产估值（按 USDT 计）</li>
           <li>区分现货 / 合约持仓</li>
         </ul>
+
+        <h3>总估值覆盖范围（v1.0.0 起）</h3>
+        <p>对每个有余额的非稳定币，Cortex 都会去交易所拉 <code>ASSET/USDT</code> ticker 来估值，<strong>不再限于 30 个主流币白名单</strong>。SHIB / PEPE / FLOKI 等长尾币也能正确算进总值。</p>
+        <p>拉不到价的（已下架币、新发币、稳定币变种等）会用 <strong>ℹ️ 灰色提示</strong>列出，仅作信息提示不影响总值显示。</p>
+
+        <h3>错误分级</h3>
+        <ul>
+          <li>⚠️ <strong>黄色"查询失败"</strong> — 真错误（如 fetch_positions 权限不足、网络问题等），点击展开可见原因</li>
+          <li>ℹ️ <strong>灰色"提示"</strong> — 信息级（如未计入总估值的小币），不影响交易</li>
+        </ul>
       </section>
 
       <!-- 16. 总览 -->
@@ -427,12 +451,30 @@
       <section id="troubleshoot">
         <h2>17. 故障排查</h2>
 
+        <h3>侧边栏底部"🔴 网络异常"</h3>
+        <ul>
+          <li>国内访问交易所 API 被墙，必须开代理（详见<a href="#install">第 1 章 国内网络一节</a>）</li>
+          <li>点击红色指示器会显示 Cortex 当前检测到的代理</li>
+          <li>开了 ClashX 但还是红色？检查菜单栏图标是否勾了「设置为系统代理」</li>
+          <li><strong>开了代理 10 秒内会自动恢复</strong>，无需重启 Cortex；侧边栏变绿后策略自动续跑</li>
+        </ul>
+
         <h3>启动卡在"正在启动 Cortex 核心..."</h3>
         <ul>
           <li>正常现象（首次冷启动 15–25 秒）</li>
           <li>超过 30 秒还没好 → 看右上角是否有"Cortex 核心未启动"提示。重启 Cortex 一次。</li>
           <li>反复出现 → 检查代理 / VPN（cortex-core 只用 127.0.0.1）</li>
         </ul>
+
+        <h3>策略启动了状态却变 🔴 错误</h3>
+        <p>v1.0.0 起，<strong>纯网络问题不会让策略进 error</strong>（保持 🟢 运行中，下个 tick 自动重试）。如果策略变红了，原因大概率是：</p>
+        <ul>
+          <li><strong>余额不足</strong> — 实盘账户没钱，或模拟盘 USDT 用完了</li>
+          <li><strong>API key 无效 / 权限不足</strong> — 重新录入 + 测试连接</li>
+          <li><strong>配置问题</strong> — 比如合约策略没设止损、网格上下限错位（preflight 通常已经拦了）</li>
+          <li><strong>交易所参数错</strong> — 比如最小下单金额低于限制</li>
+        </ul>
+        <p>具体原因可在<strong>右上角铃铛通知面板</strong>看到（v1.0.0 起策略进 error 会推送 critical 通知，含错误原因）。</p>
 
         <h3>OKX 报 50101 错误</h3>
         <p><code>APIKey does not match current environment</code> — 模拟盘 key 错填到实盘，或反之。重新录入 key 时<strong>正确勾选"模拟盘 / Testnet"</strong>。</p>
