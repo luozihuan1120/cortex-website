@@ -2,7 +2,7 @@
 
 > AI 驱动的加密货币量化交易桌面应用 · 本地运行
 
-[官网](https://luozihuan1120.github.io/cortex-website/) · [下载 v1.0.0](https://github.com/luozihuan1120/cortex-website/releases/latest) · [FAQ](https://luozihuan1120.github.io/cortex-website/#faq)
+[官网](https://luozihuan1120.github.io/cortex-website/) · [下载 v1.1.0](https://github.com/luozihuan1120/cortex-website/releases/latest) · [FAQ](https://luozihuan1120.github.io/cortex-website/#faq)
 
 ---
 
@@ -25,13 +25,13 @@ Cortex 是一款**本地运行**的加密货币量化交易桌面应用。你在
 
 ## 下载
 
-最新版本 **v1.0.0**：
+最新版本 **v1.1.0**：
 
 | 平台 | 文件 | 大小 |
 |---|---|---|
-| macOS Apple Silicon (M 系列) | [Cortex-1.0.0-arm64.dmg](https://github.com/luozihuan1120/cortex-website/releases/download/v1.0.0/Cortex-1.0.0-arm64.dmg) | 122 MB |
-| macOS Intel | [Cortex-1.0.0-x64.dmg](https://github.com/luozihuan1120/cortex-website/releases/download/v1.0.0/Cortex-1.0.0-x64.dmg) | 126 MB |
-| Windows 10 / 11 (x64) | [Cortex-1.0.0-Setup.exe](https://github.com/luozihuan1120/cortex-website/releases/download/v1.0.0/Cortex-1.0.0-Setup.exe) | 96 MB |
+| macOS Apple Silicon (M 系列) | [Cortex-1.1.0-arm64.dmg](https://github.com/luozihuan1120/cortex-website/releases/download/v1.1.0/Cortex-1.1.0-arm64.dmg) | 122 MB |
+| macOS Intel | [Cortex-1.1.0-x64.dmg](https://github.com/luozihuan1120/cortex-website/releases/download/v1.1.0/Cortex-1.1.0-x64.dmg) | 126 MB |
+| Windows 10 / 11 (x64) | [Cortex-1.1.0-Setup.exe](https://github.com/luozihuan1120/cortex-website/releases/download/v1.1.0/Cortex-1.1.0-Setup.exe) | 96 MB |
 
 Linux 版规划中。
 
